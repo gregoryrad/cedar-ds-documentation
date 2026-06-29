@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import PageContent from '../../components/PageContent.astro';
+import { Checkbox } from '../../cedar/components/Checkbox/Checkbox';
 import { Badge } from '../../cedar/components/Badge/Badge';
 ---
 
@@ -9,50 +10,166 @@ import { Badge } from '../../cedar/components/Badge/Badge';
   <PageHeader
     eyebrow="Components"
     title="Checkbox"
-    description="Three-layer component set: Checkbox Control (the box itself), Checkbox (control + label), Checkbox Full (full-width with description). 18 variants each. React implementation in progress."
+    description="Three-layer component set: the bare control, a labeled checkbox, and a full-width variant with description. 54 Figma variants across state and size."
   />
 
   <PageContent>
+    <!-- States -->
     <section>
-      <div class="status-block">
-        <div class="status-row">
-          <Badge color="success" badgeStyle="subtle" client:load>Figma: Done — 54 variants</Badge>
-          <Badge color="warning" badgeStyle="subtle" client:load>React: In progress</Badge>
+      <h2 class="section-title">States</h2>
+      <p class="section-desc">All six states from Figma — Default, Checked, Indeterminate, Error, Disabled, Disabled Checked.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <span class="row-label">Default</span>
+          <Checkbox client:load />
         </div>
-        <p class="status-desc">
-          The layered component set (Control → Checkbox → Checkbox Full) is a good example
-          of Cedar's compositional design. React implementation follows the same three-layer
-          approach: a headless control, a labeled wrapper, and a full-width form field.
-        </p>
+        <div class="demo-row">
+          <span class="row-label">Checked</span>
+          <Checkbox checked client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">Indeterminate</span>
+          <Checkbox indeterminate client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">Error</span>
+          <Checkbox state="error" client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">Disabled</span>
+          <Checkbox state="disabled" client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">Disabled Checked</span>
+          <Checkbox checked state="disabled" client:load />
+        </div>
       </div>
     </section>
 
+    <!-- With label (Checkbox variant) -->
     <section>
-      <h2 class="section-title">Component layers</h2>
-      <div class="layer-table">
-        {[
-          { layer: 'Checkbox Control', desc: 'The checkbox box itself. States: Default, Checked, Indeterminate, Error, Disabled, Disabled Checked. Sizes: Large, Medium, Small.' },
-          { layer: 'Checkbox', desc: 'Control + label text. Same state × size matrix as the Control.' },
-          { layer: 'Checkbox Full', desc: 'Full-width with label and description text. Suitable for settings panels and permission lists.' },
-        ].map(row => (
-          <div class="layer-row">
-            <strong class="layer-name">{row.layer}</strong>
-            <p class="layer-desc">{row.desc}</p>
-          </div>
-        ))}
+      <h2 class="section-title">With label</h2>
+      <p class="section-desc">The <code>Checkbox</code> variant — control and label inline. Pass a label prop to activate it.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <Checkbox label="Remember me" client:load />
+        </div>
+        <div class="demo-row">
+          <Checkbox label="Accept terms and conditions" checked client:load />
+        </div>
+        <div class="demo-row">
+          <Checkbox label="Subscribe to newsletter" state="error" client:load />
+        </div>
+        <div class="demo-row">
+          <Checkbox label="This option is unavailable" state="disabled" client:load />
+        </div>
       </div>
     </section>
 
+    <!-- Checkbox Full (with description) -->
     <section>
-      <h2 class="section-title">Planned tokens</h2>
+      <h2 class="section-title">With description — Checkbox Full</h2>
+      <p class="section-desc">The <code>Checkbox Full</code> variant — full-width layout with a label and a description below. Use in settings panels and permission lists.</p>
+      <div class="demo-block full-width">
+        <div class="demo-row full-row">
+          <Checkbox
+            label="Email notifications"
+            description="Receive updates about your account, security alerts, and product announcements."
+            checked
+            client:load
+          />
+        </div>
+        <div class="demo-row full-row">
+          <Checkbox
+            label="Analytics cookies"
+            description="Help us improve Cedar by sharing anonymous usage data. You can opt out at any time."
+            client:load
+          />
+        </div>
+        <div class="demo-row full-row">
+          <Checkbox
+            label="Two-factor authentication"
+            description="Requires a verification code in addition to your password. Strongly recommended."
+            state="disabled"
+            checked
+            client:load
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Sizes -->
+    <section>
+      <h2 class="section-title">Sizes</h2>
+      <div class="demo-block">
+        <div class="demo-row">
+          <span class="row-label">sm · 16px</span>
+          <Checkbox label="Small checkbox" checkboxSize="sm" checked client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">md · 18px</span>
+          <Checkbox label="Medium checkbox" checkboxSize="md" checked client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">lg · 20px</span>
+          <Checkbox label="Large checkbox" checkboxSize="lg" checked client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Realistic example -->
+    <section>
+      <h2 class="section-title">Realistic usage — permission list</h2>
+      <div class="permission-list">
+        <div class="permission-header">
+          <Checkbox label="All permissions" indeterminate checkboxSize="md" client:load />
+        </div>
+        <div class="permission-items">
+          <Checkbox
+            label="Read"
+            description="View resources in this workspace."
+            checked
+            client:load
+          />
+          <Checkbox
+            label="Write"
+            description="Create and edit resources."
+            checked
+            client:load
+          />
+          <Checkbox
+            label="Delete"
+            description="Permanently remove resources. Use with caution."
+            client:load
+          />
+          <Checkbox
+            label="Admin"
+            description="Manage team members and billing. Requires owner approval."
+            state="disabled"
+            client:load
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
       <div class="token-table">
         {[
-          { token: 'action/primary', usage: 'Checked background' },
-          { token: 'status/error', usage: 'Error state border' },
-          { token: 'border/base', usage: 'Unchecked border color' },
-          { token: 'bg/disabled', usage: 'Disabled background' },
-          { token: 'action/on-primary', usage: 'Checkmark icon color' },
-          { token: 'radius/sm', usage: 'Checkbox border radius' },
+          { token: 'action/primary',    usage: 'Checked / indeterminate background and border' },
+          { token: 'action/on-primary', usage: 'Checkmark and indeterminate icon color' },
+          { token: 'bg/base',           usage: 'Unchecked background' },
+          { token: 'bg/disabled',       usage: 'Disabled background' },
+          { token: 'border/base',       usage: 'Unchecked border color' },
+          { token: 'border/disabled',   usage: 'Disabled border color' },
+          { token: 'status/error',      usage: 'Error border color' },
+          { token: 'border-width/bold', usage: 'Box border width (2px)' },
+          { token: 'radius/sm',         usage: 'Box border radius (1px)' },
+          { token: 'text/base',         usage: 'Label text' },
+          { token: 'text/subtle',       usage: 'Description text' },
+          { token: 'text/disabled',     usage: 'Disabled label and description' },
+          { token: 'space/2',           usage: 'Gap between control and label' },
         ].map(row => (
           <div class="token-row">
             <code class="token-name">{row.token}</code>
@@ -61,68 +178,105 @@ import { Badge } from '../../cedar/components/Badge/Badge';
         ))}
       </div>
     </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="success" badgeStyle="subtle" client:load>Figma: Done — 54 variants</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+        <Badge color="information" badgeStyle="subtle" client:load>Focus ring: v2</Badge>
+      </div>
+    </section>
   </PageContent>
 </BaseLayout>
 
 <style>
-  .status-block {
-    background: var(--bg-base);
-    border: var(--border-width-base) solid var(--border-subtle);
-    border-radius: var(--radius-xl);
-    padding: var(--space-5);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .status-row {
-    display: flex;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-  }
-
-  .status-desc {
-    font-size: var(--body-sm);
-    color: var(--text-subtle);
-    line-height: 1.6;
-    max-width: 560px;
-  }
-
   .section-title {
     font-size: var(--heading-lg);
     font-weight: 700;
     color: var(--text-base);
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-2);
   }
 
-  .layer-table, .token-table {
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .section-desc code {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    background: var(--bg-muted);
+    padding: 1px 5px;
+    border-radius: var(--radius-md);
+    color: var(--text-base);
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .demo-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+
+  .full-row {
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .row-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    width: 120px;
+    flex-shrink: 0;
+  }
+
+  /* Permission list example */
+  .permission-list {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    max-width: 480px;
+  }
+
+  .permission-header {
+    padding: var(--space-4) var(--space-5);
+    border-bottom: var(--border-width-bold) solid var(--border-subtle);
+    background: var(--bg-faint);
+  }
+
+  .permission-items {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .permission-items > :global(*) {
+    padding: var(--space-4) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .permission-items > :global(*:last-child) {
+    border-bottom: none;
+  }
+
+  .token-table {
     border: var(--border-width-base) solid var(--border-subtle);
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: var(--bg-base);
-  }
-
-  .layer-row {
-    padding: var(--space-4);
-    border-bottom: var(--border-width-base) solid var(--border-subtle);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .layer-row:last-child { border-bottom: none; }
-  .layer-row:hover { background: var(--bg-faint); }
-
-  .layer-name {
-    font-size: var(--body-sm);
-    font-weight: 600;
-    color: var(--text-base);
-  }
-
-  .layer-desc {
-    font-size: var(--body-sm);
-    color: var(--text-subtle);
-    line-height: 1.5;
   }
 
   .token-row {
@@ -146,5 +300,11 @@ import { Badge } from '../../cedar/components/Badge/Badge';
   .token-usage {
     font-size: var(--body-sm);
     color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
   }
 </style>

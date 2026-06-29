@@ -2,6 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import PageContent from '../../components/PageContent.astro';
+import { Input } from '../../cedar/components/Input/Input';
+import { InputField } from '../../cedar/components/Input/InputField';
+import { InputAdornmentDemo } from '../../cedar/components/Input/InputAdornmentDemo';
 import { Badge } from '../../cedar/components/Badge/Badge';
 ---
 
@@ -9,52 +12,135 @@ import { Badge } from '../../cedar/components/Badge/Badge';
   <PageHeader
     eyebrow="Components"
     title="Input"
-    description="Text input with 75 Figma variants (state × size × adornment). Wraps in Form Field for label + helper text. React implementation coming in the next session."
+    description="Text input with 75 Figma variants across state, size, and adornment. Wraps in FormField for label + helper text. Click into any input to see the focus state."
   />
 
   <PageContent>
+    <!-- States -->
     <section>
-      <div class="status-block">
-        <div class="status-row">
-          <Badge color="success" badgeStyle="subtle" client:load>Figma: Done — 90 variants</Badge>
-          <Badge color="warning" badgeStyle="subtle" client:load>React: In progress</Badge>
-        </div>
-        <p class="status-desc">
-          The Input component (Input Field + Form Field) is fully specified in Figma.
-          React implementation is scheduled for the next build session. This page will
-          show live demos once the component is implemented.
-        </p>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Variants (from Figma)</h2>
-      <div class="variant-table">
-        {[
-          { dimension: 'State', values: 'Default, Focus, Filled, Error, Disabled' },
-          { dimension: 'Size', values: 'Large, Medium' },
-          { dimension: 'Adornment', values: 'None, Leading icon, Trailing icon, Both' },
-          { dimension: 'Form Field sizes', values: 'Large, Medium, Small (with label + helper text)' },
-        ].map(row => (
-          <div class="variant-row">
-            <span class="variant-dim">{row.dimension}</span>
-            <span class="variant-vals">{row.values}</span>
+      <h2 class="section-title">States</h2>
+      <p class="section-desc">All five states from Figma — Default, Focus (click in), Filled, Error, Disabled.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <span class="row-label">Default</span>
+          <div class="input-wrap">
+            <Input placeholder="Placeholder text" client:load />
           </div>
-        ))}
+        </div>
+        <div class="demo-row">
+          <span class="row-label">Filled</span>
+          <div class="input-wrap">
+            <Input defaultValue="greg@cedar.design" client:load />
+          </div>
+        </div>
+        <div class="demo-row">
+          <span class="row-label">Error</span>
+          <div class="input-wrap">
+            <Input defaultValue="bad-email" hasError placeholder="Email address" client:load />
+          </div>
+        </div>
+        <div class="demo-row">
+          <span class="row-label">Disabled</span>
+          <div class="input-wrap">
+            <Input defaultValue="Locked value" disabled client:load />
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- Sizes -->
     <section>
-      <h2 class="section-title">Planned tokens</h2>
+      <h2 class="section-title">Sizes</h2>
+      <div class="demo-block">
+        <div class="demo-row">
+          <span class="row-label">sm · 32px</span>
+          <div class="input-wrap">
+            <Input inputSize="sm" placeholder="Small input" client:load />
+          </div>
+        </div>
+        <div class="demo-row">
+          <span class="row-label">md · 40px</span>
+          <div class="input-wrap">
+            <Input inputSize="md" placeholder="Medium input" client:load />
+          </div>
+        </div>
+        <div class="demo-row">
+          <span class="row-label">lg · 48px</span>
+          <div class="input-wrap">
+            <Input inputSize="lg" placeholder="Large input" client:load />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Adornments -->
+    <section>
+      <h2 class="section-title">Adornments</h2>
+      <p class="section-desc">Leading and trailing icons are ReactNode props. Error state auto-injects a trailing error icon when no trailingIcon is set.</p>
+      <InputAdornmentDemo client:load />
+    </section>
+
+    <!-- Form Field -->
+    <section>
+      <h2 class="section-title">FormField</h2>
+      <p class="section-desc">Bundles label, input, helper text, and error state into a single self-contained component. Wires htmlFor/id and aria-describedby internally.</p>
+      <div class="form-demo">
+        <InputField
+          label="Email address"
+          helperText="We'll never share your email."
+          inputSize="md"
+          placeholder="you@example.com"
+          type="email"
+          client:load
+        />
+
+        <InputField
+          label="Password"
+          required
+          inputSize="md"
+          placeholder="Min. 8 characters"
+          type="password"
+          client:load
+        />
+
+        <InputField
+          label="Username"
+          errorText="That username is already taken."
+          inputSize="md"
+          defaultValue="greg.rad"
+          client:load
+        />
+
+        <InputField
+          label="API key"
+          helperText="Read-only — contact support to rotate."
+          inputSize="md"
+          defaultValue="sk-1234-abcd-5678"
+          disabled
+          client:load
+        />
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
       <div class="token-table">
         {[
-          { token: 'bg/base', usage: 'Input background' },
-          { token: 'border/base, border/subtle', usage: 'Border colors (focus vs. default)' },
-          { token: 'border-width/base, border-width/bold', usage: 'Default vs. focus border width' },
-          { token: 'action/primary', usage: 'Focus ring color' },
-          { token: 'status/error', usage: 'Error state border and icon' },
-          { token: 'text/base, text/subtle, text/disabled', usage: 'Input text, placeholder, disabled' },
-          { token: 'radius/md', usage: 'Input border radius' },
+          { token: 'bg/base',              usage: 'Input background' },
+          { token: 'bg/disabled',          usage: 'Disabled background' },
+          { token: 'border/subtle',        usage: 'Default border color' },
+          { token: 'action/primary',       usage: 'Focus border color' },
+          { token: 'status/error',         usage: 'Error border + icon color' },
+          { token: 'border/disabled',      usage: 'Disabled border color' },
+          { token: 'border-width/base',    usage: 'Default border width (1px)' },
+          { token: 'border-width/bold',    usage: 'Focus border width (2px)' },
+          { token: 'text/base',            usage: 'Input text' },
+          { token: 'text/subtle',          usage: 'Placeholder + icon color' },
+          { token: 'text/disabled',        usage: 'Disabled text + icon' },
+          { token: 'radius/md',            usage: 'Input container border radius' },
+          { token: 'space/3, space/4',     usage: 'Horizontal padding by size' },
+          { token: 'body/sm, body/md, body/lg', usage: 'Font size by size variant' },
         ].map(row => (
           <div class="token-row">
             <code class="token-name">{row.token}</code>
@@ -63,48 +149,78 @@ import { Badge } from '../../cedar/components/Badge/Badge';
         ))}
       </div>
     </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="success" badgeStyle="subtle" client:load>Figma: Done — 90 variants</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+        <Badge color="information" badgeStyle="subtle" client:load>Textarea variant: v2</Badge>
+      </div>
+    </section>
   </PageContent>
 </BaseLayout>
 
 <style>
-  .status-block {
-    background: var(--bg-base);
-    border: var(--border-width-base) solid var(--border-subtle);
-    border-radius: var(--radius-xl);
-    padding: var(--space-5);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .status-row {
-    display: flex;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-  }
-
-  .status-desc {
-    font-size: var(--body-sm);
-    color: var(--text-subtle);
-    line-height: 1.6;
-    max-width: 560px;
-  }
-
   .section-title {
     font-size: var(--heading-lg);
     font-weight: 700;
     color: var(--text-base);
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-2);
   }
 
-  .variant-table, .token-table {
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .demo-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+
+  .row-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    width: 100px;
+    flex-shrink: 0;
+  }
+
+  .input-wrap {
+    flex: 1;
+    max-width: 360px;
+  }
+
+  .form-demo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 400px;
+  }
+
+  .token-table {
     border: var(--border-width-base) solid var(--border-subtle);
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: var(--bg-base);
   }
 
-  .variant-row, .token-row {
+  .token-row {
     display: grid;
     grid-template-columns: 2fr 3fr;
     gap: var(--space-4);
@@ -113,19 +229,8 @@ import { Badge } from '../../cedar/components/Badge/Badge';
     align-items: center;
   }
 
-  .variant-row:last-child, .token-row:last-child { border-bottom: none; }
-  .variant-row:hover, .token-row:hover { background: var(--bg-faint); }
-
-  .variant-dim {
-    font-size: var(--body-sm);
-    font-weight: 600;
-    color: var(--text-base);
-  }
-
-  .variant-vals {
-    font-size: var(--body-sm);
-    color: var(--text-subtle);
-  }
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
 
   .token-name {
     font-family: var(--font-mono);
@@ -136,5 +241,11 @@ import { Badge } from '../../cedar/components/Badge/Badge';
   .token-usage {
     font-size: var(--body-sm);
     color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
   }
 </style>
