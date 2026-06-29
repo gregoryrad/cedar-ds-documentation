@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import { Alert } from '../../cedar/components/Alert/Alert';
+---
+
+<BaseLayout title="Alert">
+  <PageHeader
+    eyebrow="Components"
+    title="Alert"
+    description="Contextual feedback messages. Four semantic variants — error, warning, success, information — each driven entirely by status/* color tokens."
+  />
+
+  <PageContent>
+    <section>
+      <h2 class="section-title">All variants</h2>
+      <div class="demo-stack">
+        <Alert variant="success" title="Changes saved" client:load>
+          Your draft has been saved and is ready to publish.
+        </Alert>
+        <Alert variant="error" title="Validation error" client:load>
+          Please correct the highlighted fields before submitting the form.
+        </Alert>
+        <Alert variant="warning" title="Unsaved changes" client:load>
+          You have unsaved changes. Leaving this page will discard them.
+        </Alert>
+        <Alert variant="information" title="New feature available" client:load>
+          Dark mode support is coming in Cedar v2. You can preview it in Settings.
+        </Alert>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Without title</h2>
+      <div class="demo-stack">
+        <Alert variant="success" client:load>Your export is ready to download.</Alert>
+        <Alert variant="error" client:load>This action failed. Please try again.</Alert>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'status/*-bg', usage: 'Background color per variant' },
+          { token: 'status/error, warning, success, information', usage: 'Icon color and title color' },
+          { token: 'border-width/bold', usage: 'Left border accent width (2px)' },
+          { token: 'text/base', usage: 'Body message color' },
+          { token: 'space/3, space/4', usage: 'Internal padding' },
+          { token: 'radius/lg', usage: 'Container border radius' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-4);
+  }
+
+  .demo-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+</style>

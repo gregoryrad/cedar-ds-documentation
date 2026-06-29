@@ -1,0 +1,256 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+
+const semanticTokens = [
+  { group: 'Backgrounds', tokens: [
+    { name: 'bg/base',     var: '--bg-base',     hex: '#FFFFFF', alias: 'foundations/white' },
+    { name: 'bg/faint',    var: '--bg-faint',    hex: '#F7F7F7', alias: 'neutral/50' },
+    { name: 'bg/muted',    var: '--bg-muted',    hex: '#DCDCDC', alias: 'neutral/150' },
+    { name: 'bg/raised',   var: '--bg-raised',   hex: '#DCDCDC', alias: 'neutral/150' },
+    { name: 'bg/subtle',   var: '--bg-subtle',   hex: '#CCCCCC', alias: 'neutral/300' },
+    { name: 'bg/disabled', var: '--bg-disabled', hex: '#E2E2E2', alias: 'neutral/100' },
+  ]},
+  { group: 'Text', tokens: [
+    { name: 'text/base',     var: '--text-base',     hex: '#252525', alias: 'neutral/900' },
+    { name: 'text/subtle',   var: '--text-subtle',   hex: '#939393', alias: 'neutral/600' },
+    { name: 'text/disabled', var: '--text-disabled', hex: '#C2C2C2', alias: 'neutral/400' },
+    { name: 'text/inverse',  var: '--text-inverse',  hex: '#FFFFFF', alias: 'foundations/white' },
+    { name: 'text/on-brand', var: '--text-on-brand', hex: '#FFFFFF', alias: 'foundations/white' },
+  ]},
+  { group: 'Border', tokens: [
+    { name: 'border/base',     var: '--border-base',     hex: '#252525', alias: 'neutral/900' },
+    { name: 'border/subtle',   var: '--border-subtle',   hex: '#CCCCCC', alias: 'neutral/300' },
+    { name: 'border/brand',    var: '--border-brand',    hex: '#679504', alias: 'brand/primary/500' },
+    { name: 'border/disabled', var: '--border-disabled', hex: '#DCDCDC', alias: 'neutral/150' },
+  ]},
+  { group: 'Actions', tokens: [
+    { name: 'action/primary',          var: '--action-primary',          hex: '#679504', alias: 'brand/primary/500' },
+    { name: 'action/primary-hover',    var: '--action-primary-hover',    hex: '#567D03', alias: 'brand/primary/600' },
+    { name: 'action/primary-pressed',  var: '--action-primary-pressed',  hex: '#456303', alias: 'brand/primary/700' },
+    { name: 'action/secondary',        var: '--action-secondary',        hex: '#F0A00D', alias: 'brand/amber/500' },
+    { name: 'action/accent',           var: '--action-accent',           hex: '#DA700D', alias: 'brand/orange/500' },
+    { name: 'action/destructive',      var: '--action-destructive',      hex: '#CF3D03', alias: 'brand/sienna/600' },
+    { name: 'action/neutral',          var: '--action-neutral',          hex: '#939393', alias: 'neutral/600' },
+  ]},
+  { group: 'Status', tokens: [
+    { name: 'status/error',            var: '--status-error',            hex: '#DF5B5B', alias: 'error/500' },
+    { name: 'status/warning',          var: '--status-warning',          hex: '#C7850A', alias: 'brand/amber/600' },
+    { name: 'status/success',          var: '--status-success',          hex: '#4CD52A', alias: 'success/500' },
+    { name: 'status/information',      var: '--status-information',      hex: '#478AFF', alias: 'information/500' },
+    { name: 'status/error-bg',         var: '--status-error-bg',         hex: '#EACFCF', alias: 'error/100' },
+    { name: 'status/warning-bg',       var: '--status-warning-bg',       hex: '#FEF8EC', alias: 'brand/amber/100' },
+    { name: 'status/success-bg',       var: '--status-success-bg',       hex: '#DBF7D4', alias: 'success/100' },
+    { name: 'status/information-bg',   var: '--status-information-bg',   hex: '#CBD9F0', alias: 'information/100' },
+  ]},
+];
+
+const primitiveGroups = [
+  { label: 'brand/primary', prefix: '--brand-primary', steps: ['100','150','200','300','400','500','600','700','800','900','950'] },
+  { label: 'brand/amber',   prefix: '--brand-amber',   steps: ['100','150','200','300','400','500','600','700','800','900','950'] },
+  { label: 'brand/orange',  prefix: '--brand-orange',  steps: ['100','150','200','300','400','500','600','700','800','900','950'] },
+  { label: 'brand/sienna',  prefix: '--brand-sienna',  steps: ['100','150','200','300','400','500','600','700','800','900','950'] },
+  { label: 'neutral',       prefix: '--neutral',        steps: ['50','100','150','200','300','400','500','600','700','800','900','950'] },
+  { label: 'error',         prefix: '--error',          steps: ['100','150','200','300','400','500','600','700','800','900','950'] },
+  { label: 'success',       prefix: '--success',        steps: ['100','150','200','300','400','500','600','700','800','900','950'] },
+  { label: 'warning',       prefix: '--warning',        steps: ['100','150','200','300','400','500','600','700','800','900','950'] },
+  { label: 'information',   prefix: '--information',    steps: ['100','150','200','300','400','500','600','700','800','900','950'] },
+];
+---
+
+<BaseLayout title="Color tokens">
+  <PageHeader
+    eyebrow="Tokens"
+    title="Color"
+    description="Cedar's color system has two layers: primitive palettes (raw hex values named by scale) and a semantic layer (purpose-based aliases). Always use semantic tokens in components — never primitives directly."
+  />
+
+  <PageContent>
+    <!-- Semantic tokens -->
+    <section>
+      <h2 class="sub-title">Semantic tokens</h2>
+      <p class="sub-desc">These are the tokens components consume. Each one is an alias to a primitive — the alias is the contract, not the hex value.</p>
+      {semanticTokens.map(group => (
+        <div class="token-group">
+          <h3 class="group-title">{group.group}</h3>
+          <div class="token-table">
+            <div class="table-header">
+              <span>Token</span><span>CSS var</span><span>Value</span><span>Alias</span>
+            </div>
+            {group.tokens.map(t => (
+              <div class="table-row">
+                <span class="token-name">{t.name}</span>
+                <code class="token-var">{t.var}</code>
+                <span class="swatch-cell">
+                  <span class="inline-swatch" style={`background: var(${t.var}); border: 1px solid rgba(0,0,0,0.1)`} />
+                  <code>{t.hex}</code>
+                </span>
+                <code class="token-alias">{t.alias}</code>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <!-- Primitive palettes -->
+    <section>
+      <h2 class="sub-title">Primitive palettes</h2>
+      <p class="sub-desc">Raw color values named by palette and scale step. Reference these only when defining semantic tokens — not directly in components.</p>
+      {primitiveGroups.map(g => (
+        <div class="palette-group">
+          <p class="palette-label">{g.label}</p>
+          <div class="palette-row">
+            {g.steps.map(step => (
+              <div class="palette-swatch" title={`${g.prefix.replace('--', '')}-${step}`}>
+                <div class="swatch-block" style={`background-color: var(${g.prefix}-${step})`} />
+                <span class="swatch-step">{step}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .sub-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .sub-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-5);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .token-group {
+    margin-bottom: var(--space-6);
+  }
+
+  .group-title {
+    font-size: var(--body-md);
+    font-weight: 600;
+    color: var(--text-base);
+    margin-bottom: var(--space-3);
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    font-size: var(--body-sm);
+  }
+
+  .table-header {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.5fr 2fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-faint);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    font-size: var(--size-xs);
+    font-weight: 600;
+    color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .table-row {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.5fr 2fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .table-row:last-child {
+    border-bottom: none;
+  }
+
+  .table-row:hover {
+    background-color: var(--bg-faint);
+  }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-var {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+  }
+
+  .token-alias {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+  }
+
+  .swatch-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+  }
+
+  .inline-swatch {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+  }
+
+  /* Primitive palettes */
+  .palette-group {
+    margin-bottom: var(--space-4);
+  }
+
+  .palette-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    font-weight: 600;
+    color: var(--text-subtle);
+    margin-bottom: var(--space-2);
+  }
+
+  .palette-row {
+    display: flex;
+    gap: 4px;
+    height: 56px;
+  }
+
+  .palette-swatch {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .swatch-block {
+    flex: 1;
+    width: 100%;
+    border-radius: var(--radius-sm);
+    cursor: default;
+  }
+
+  .swatch-step {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--text-subtle);
+  }
+</style>

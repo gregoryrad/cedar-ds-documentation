@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import { Button } from '../../cedar/components/Button/Button';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Button">
+  <PageHeader
+    eyebrow="Components"
+    title="Button"
+    description="72 variants across style, color, size, and state. The primary interactive element in Cedar — used wherever a user needs to trigger an action."
+  />
+
+  <PageContent>
+    <section>
+      <h2 class="section-title">Colors</h2>
+      <p class="section-desc">Each color maps directly to an action/* semantic token. Hover states resolve to *-hover tokens — no one-off values.</p>
+      <div class="demo-block">
+        {(['brand', 'secondary', 'accent', 'destructive', 'neutral'] as const).map(color => (
+          <div class="demo-row">
+            <span class="row-label">{color}</span>
+            <div class="button-group">
+              <Button color={color} variant="filled" size="md" client:load>{color} filled</Button>
+              <Button color={color} variant="outlined" size="md" client:load>{color} outlined</Button>
+              <Button color={color} variant="ghost" size="md" client:load>{color} ghost</Button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Sizes</h2>
+      <div class="demo-block">
+        <div class="demo-row">
+          <div class="button-group align-end">
+            <Button color="brand" size="sm" client:load>Small</Button>
+            <Button color="brand" size="md" client:load>Medium</Button>
+            <Button color="brand" size="lg" client:load>Large</Button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">States</h2>
+      <div class="demo-block">
+        <div class="demo-row">
+          <div class="button-group">
+            <Button color="brand" client:load>Enabled</Button>
+            <Button color="brand" disabled client:load>Disabled</Button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'action/primary', usage: 'Filled button background (brand)' },
+          { token: 'action/primary-hover', usage: 'Hover state background' },
+          { token: 'action/primary-disabled', usage: 'Disabled background' },
+          { token: 'action/on-primary', usage: 'Text on filled buttons' },
+          { token: 'text/disabled', usage: 'Text color when disabled' },
+          { token: 'space/3, space/4, space/6', usage: 'Horizontal padding by size' },
+          { token: 'radius/md, radius/lg', usage: 'Border radius by size (sm → md, md/lg → lg)' },
+          { token: 'border/base', usage: 'Outlined border color' },
+          { token: 'border-width/base', usage: 'Outlined border width' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Figma</h2>
+      <p class="section-desc">
+        The Button component set in Cedar DS Components has 72 variants:
+        <strong>Style</strong> × <strong>Color</strong> × <strong>Size</strong> × <strong>State</strong>.
+        Current implementation covers all color and size combinations with enabled and disabled states.
+        Focus state styling (outline ring) is planned for v2.
+      </p>
+      <div class="figma-meta">
+        <Badge color="success" badgeStyle="subtle" client:load>Figma: Done</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+        <Badge color="information" badgeStyle="subtle" client:load>Focus state: v2</Badge>
+      </div>
+    </section>
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .demo-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+
+  .row-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    width: 80px;
+    flex-shrink: 0;
+  }
+
+  .button-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .button-group.align-end {
+    align-items: flex-end;
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-top: var(--space-3);
+  }
+</style>

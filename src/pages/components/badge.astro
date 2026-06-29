@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Badge">
+  <PageHeader
+    eyebrow="Components"
+    title="Badge"
+    description="36 Figma variants across color, size, and style. Used for status labels, counts, and categorical metadata. Always non-interactive."
+  />
+
+  <PageContent>
+    <section>
+      <h2 class="section-title">Colors × Styles</h2>
+      <div class="demo-grid">
+        {(['default', 'success', 'warning', 'error', 'information'] as const).map(color => (
+          <div class="demo-row">
+            <span class="row-label">{color}</span>
+            <div class="badge-group">
+              <Badge color={color} badgeStyle="filled" client:load>{color} filled</Badge>
+              <Badge color={color} badgeStyle="subtle" client:load>{color} subtle</Badge>
+              <Badge color={color} badgeStyle="outlined" client:load>{color} outlined</Badge>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Sizes</h2>
+      <div class="demo-block size-row">
+        <Badge color="success" badgeStyle="subtle" size="sm" client:load>Small badge</Badge>
+        <Badge color="success" badgeStyle="subtle" size="md" client:load>Medium badge</Badge>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <p class="section-desc">Each badge variant maps to the status color tokens — background, foreground, and border are all token-driven.</p>
+      <div class="token-table">
+        {[
+          { token: 'status/error, warning, success, information', usage: 'Foreground color / filled background' },
+          { token: 'status/*-bg', usage: 'Subtle variant background' },
+          { token: 'bg/muted', usage: 'Default color background (subtle)' },
+          { token: 'radius/full', usage: 'Pill shape' },
+          { token: 'size/xs, body/sm', usage: 'Font size by badge size' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-4);
+  }
+
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .demo-grid {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .demo-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+
+  .row-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    width: 90px;
+    flex-shrink: 0;
+  }
+
+  .badge-group {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+  }
+
+  .size-row {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+</style>

@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+
+const widthTokens = [
+  { name: 'border/base',   var: '--border-width-base',   value: '1px', note: 'Default. Form controls, cards, dividers.' },
+  { name: 'border/bold',   var: '--border-width-bold',   value: '2px', note: 'Emphasis. Focus rings, active states, alert accents.' },
+  { name: 'border/x-bold', var: '--border-width-x-bold', value: '3px', note: 'Strong accent. Alert left-border treatment.' },
+];
+---
+
+<BaseLayout title="Border tokens">
+  <PageHeader
+    eyebrow="Tokens"
+    title="Border"
+    description="Cedar defines three border width tokens. These are width values — for border colors, see the Color token page (border/* semantic tokens)."
+  />
+
+  <PageContent>
+    <section class="demo-section">
+      {widthTokens.map(t => (
+        <div class="border-row">
+          <div class="border-demo" style={`border: var(${t.var}) solid var(--border-base)`} />
+          <div class="border-meta">
+            <div class="token-details">
+              <code class="token-name">{t.name}</code>
+              <span class="sep">·</span>
+              <code class="token-var">{t.var}</code>
+              <span class="sep">·</span>
+              <code class="token-value">{t.value}</code>
+            </div>
+            <p class="token-note">{t.note}</p>
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <section>
+      <h2 class="callout-title">Using border tokens</h2>
+      <p class="callout-body">
+        Width tokens and color tokens always pair together. The canonical pairing is
+        <code>var(--border-width-base) solid var(--border-subtle)</code> for
+        default borders — the same pattern used by every card and input in Cedar.
+      </p>
+    </section>
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .demo-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .border-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-4) var(--space-5);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--bg-base);
+  }
+
+  .border-demo {
+    width: 80px;
+    height: 60px;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+    background: var(--bg-faint);
+  }
+
+  .border-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .token-details {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .token-name, .token-var, .token-value {
+    font-family: var(--font-mono);
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .token-name {
+    color: var(--text-base);
+    font-weight: 600;
+  }
+
+  .sep { color: var(--border-subtle); }
+
+  .token-note {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    line-height: 1.5;
+  }
+
+  .callout-title {
+    font-size: var(--heading-md);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .callout-body {
+    font-size: var(--body-md);
+    color: var(--text-subtle);
+    line-height: 1.6;
+    max-width: 560px;
+  }
+
+  .callout-body code {
+    font-family: var(--font-mono);
+    font-size: var(--body-sm);
+    background: var(--bg-muted);
+    padding: 2px 6px;
+    border-radius: var(--radius-md);
+    color: var(--text-base);
+  }
+</style>

@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PageContent from '../components/PageContent.astro';
+import { Badge } from '../cedar/components/Badge/Badge';
+
+const v1 = [
+  { item: 'Token pages: Color, Spacing, Radius, Typography, Border' },
+  { item: 'Component pages: Button, Input, Checkbox, Badge, Card, Alert, Status, Tabs' },
+  { item: 'Live React demos for all v1 components' },
+  { item: 'Built with Cedar — DayLog real-world usage' },
+  { item: 'Roadmap page (this page)' },
+  { item: 'Deployed to Vercel' },
+];
+
+const v2Components = [
+  'Toggle', 'Radio', 'Select', 'Chip', 'Icon Button',
+  'Avatar', 'Divider', 'Modal', 'Tooltip', 'Toast',
+  'Breadcrumb', 'Pagination', 'Menu', 'Data Grid',
+];
+
+const v2Features = [
+  { item: 'Dark mode', detail: 'Figma semantic layer already has one mode — adding a second is the design work. CSS variables make the implementation straightforward.' },
+  { item: 'Storybook integration', detail: 'Auto-generated stories from Cedar component props. Useful for engineering consumers of the system.' },
+  { item: 'Interactive prop editor', detail: 'Live knobs panel on component pages — change size, color, state without editing code.' },
+  { item: 'Typography specimen page', detail: 'Full typeface showcase with Inter weight samples and Fira Code ligature examples.' },
+  { item: 'Token export (CSS, JSON)', detail: 'Download Cedar tokens as CSS custom properties or W3C design token JSON.' },
+  { item: 'Search', detail: 'Full-text search across token names, component names, and descriptions.' },
+  { item: 'Figma embed', detail: 'Live Figma frame embeds on component pages for design—dev comparison.' },
+];
+---
+
+<BaseLayout title="Roadmap">
+  <PageHeader
+    eyebrow="What's planned"
+    title="Roadmap"
+    description="Cedar v1 ships a complete token reference and live demos for 8 core components. Every gap below is a deliberate v2 decision — not a missing piece of the system."
+  />
+
+  <PageContent>
+    <section>
+      <div class="version-header">
+        <h2 class="version-title">v1 — Shipped</h2>
+        <Badge color="success" badgeStyle="subtle" client:load>Current</Badge>
+      </div>
+      <div class="item-list">
+        {v1.map(item => (
+          <div class="item-row done">
+            <span class="item-check" aria-hidden="true">✓</span>
+            <span class="item-text">{item.item}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="version-header">
+        <h2 class="version-title">v2 — Components</h2>
+        <Badge color="information" badgeStyle="subtle" client:load>Planned</Badge>
+      </div>
+      <p class="version-desc">
+        All 23 Cedar components are fully built in Figma. The remaining 15 need React
+        implementations and doc pages. Priority order will be driven by DayLog
+        usage patterns.
+      </p>
+      <div class="chip-grid">
+        {v2Components.map(name => (
+          <span class="component-chip">{name}</span>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="version-header">
+        <h2 class="version-title">v2 — Features</h2>
+        <Badge color="information" badgeStyle="subtle" client:load>Planned</Badge>
+      </div>
+      <div class="feature-list">
+        {v2Features.map(f => (
+          <div class="feature-row">
+            <h3 class="feature-name">{f.item}</h3>
+            <p class="feature-detail">{f.detail}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .version-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .version-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+  }
+
+  .version-desc {
+    font-size: var(--body-md);
+    color: var(--text-subtle);
+    line-height: 1.6;
+    max-width: 560px;
+    margin-bottom: var(--space-4);
+  }
+
+  .item-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .item-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .item-check {
+    color: var(--status-success);
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 16px;
+  }
+
+  .item-text {
+    font-size: var(--body-sm);
+    color: var(--text-base);
+  }
+
+  .chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .component-chip {
+    font-size: var(--body-sm);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    background: var(--bg-muted);
+    color: var(--text-subtle);
+    border: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .feature-row {
+    padding: var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .feature-row:last-child { border-bottom: none; }
+  .feature-row:hover { background: var(--bg-faint); }
+
+  .feature-name {
+    font-size: var(--body-md);
+    font-weight: 600;
+    color: var(--text-base);
+  }
+
+  .feature-detail {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    line-height: 1.5;
+    max-width: 600px;
+  }
+</style>

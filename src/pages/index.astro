@@ -1,0 +1,596 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Button } from '../cedar/components/Button/Button';
+import { Badge } from '../cedar/components/Badge/Badge';
+import { Alert } from '../cedar/components/Alert/Alert';
+import { Card } from '../cedar/components/Card/Card';
+import { Spinner } from '../cedar/components/Spinner/Spinner';
+---
+
+<BaseLayout title="Home">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <Badge color="success" badgeStyle="subtle" client:load>v1 · In progress</Badge>
+      </div>
+      <h1 class="hero-title">
+        A design system<br />
+        that <em>proves itself</em>.
+      </h1>
+      <p class="hero-sub">
+        Cedar is a token-based design system with a Figma source of truth, a React
+        component library, and a real-world PWA built on top of it. This site is
+        itself a Cedar artifact — every color, space, and radius you see is
+        a Cedar token.
+      </p>
+      <div class="hero-actions">
+        <Button color="brand" size="lg" client:load>
+          <a href="/tokens/color" style="color: inherit; text-decoration: none;">Explore tokens</a>
+        </Button>
+        <Button variant="outlined" color="brand" size="lg" client:load>
+          <a href="/components/button" style="color: inherit; text-decoration: none;">View components</a>
+        </Button>
+      </div>
+      <div class="hero-stats">
+        <span>214 variables</span>
+        <span class="sep">·</span>
+        <span>10 token collections</span>
+        <span class="sep">·</span>
+        <span>23 components</span>
+        <span class="sep">·</span>
+        <span>1 real-world app</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOKEN PREVIEW -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-label">Tokens</h2>
+      <h3 class="section-title">One source of truth, everywhere</h3>
+      <p class="section-desc">
+        Every value in Cedar lives as a Figma variable first, then surfaces as a
+        CSS custom property. Primitives → Semantic → Component. The chain is never
+        broken.
+      </p>
+
+      <div class="token-preview-grid">
+        <!-- Brand palette strip -->
+        <div class="token-card">
+          <p class="token-card-label">brand/primary</p>
+          <div class="swatch-row">
+            {['100','200','300','400','500','600','700','800','900','950'].map(step => (
+              <div
+                class="swatch"
+                style={`background-color: var(--brand-primary-${step})`}
+                title={`brand/primary/${step}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        <!-- Semantic row -->
+        <div class="token-card">
+          <p class="token-card-label">Color / Semantic</p>
+          <div class="semantic-row">
+            {[
+              { label: 'bg/base', token: '--bg-base', text: '--text-base' },
+              { label: 'bg/faint', token: '--bg-faint', text: '--text-base' },
+              { label: 'bg/muted', token: '--bg-muted', text: '--text-base' },
+              { label: 'action/primary', token: '--action-primary', text: '--action-on-primary' },
+              { label: 'status/error', token: '--status-error', text: '--foundations-white' },
+              { label: 'status/warning', token: '--status-warning', text: '--foundations-white' },
+              { label: 'status/success', token: '--status-success', text: '--foundations-black' },
+              { label: 'status/information', token: '--status-information', text: '--foundations-white' },
+            ].map(s => (
+              <div class="semantic-chip" style={`background: var(${s.token}); color: var(${s.text})`}>
+                {s.label}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Spacing -->
+        <div class="token-card">
+          <p class="token-card-label">Space / Scale</p>
+          <div class="space-row">
+            {[1,2,3,4,5,6,8,10].map(step => (
+              <div class="space-item">
+                <div class="space-bar" style={`width: var(--space-${step}); height: var(--space-${step})`} />
+                <span class="space-label">{step}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Radius -->
+        <div class="token-card">
+          <p class="token-card-label">Radius</p>
+          <div class="radius-row">
+            {['none','sm','md','lg','xl','full'].map(step => (
+              <div class="radius-item">
+                <div class="radius-box" style={`border-radius: var(--radius-${step})`} />
+                <span class="radius-label">{step}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="section-links">
+        <a href="/tokens/color" class="section-link">Color tokens →</a>
+        <a href="/tokens/spacing" class="section-link">Spacing tokens →</a>
+        <a href="/tokens/radius" class="section-link">Radius tokens →</a>
+        <a href="/tokens/typography" class="section-link">Typography tokens →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENT PREVIEW -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <h2 class="section-label">Components</h2>
+      <h3 class="section-title">Live examples, not screenshots</h3>
+      <p class="section-desc">
+        Every component on this site is the actual React implementation. Token-driven,
+        typed, accessible. Hover the buttons. They work.
+      </p>
+
+      <div class="demo-grid">
+        <!-- Buttons -->
+        <Card cardStyle="default" client:load>
+          <p class="demo-card-label">Button · color × variant × size</p>
+          <div class="demo-row wrap">
+            <Button color="brand" size="lg" client:load>Brand filled</Button>
+            <Button color="brand" variant="outlined" size="lg" client:load>Brand outlined</Button>
+            <Button color="secondary" size="lg" client:load>Secondary</Button>
+            <Button color="accent" size="lg" client:load>Accent</Button>
+            <Button color="destructive" size="lg" client:load>Destructive</Button>
+            <Button color="brand" size="sm" client:load>Small</Button>
+            <Button color="brand" size="md" client:load>Medium</Button>
+            <Button color="brand" disabled client:load>Disabled</Button>
+          </div>
+        </Card>
+
+        <!-- Badges -->
+        <Card cardStyle="default" client:load>
+          <p class="demo-card-label">Badge · color × style</p>
+          <div class="demo-row wrap">
+            <Badge color="default" badgeStyle="subtle" client:load>Default</Badge>
+            <Badge color="success" badgeStyle="subtle" client:load>Success</Badge>
+            <Badge color="warning" badgeStyle="subtle" client:load>Warning</Badge>
+            <Badge color="error" badgeStyle="subtle" client:load>Error</Badge>
+            <Badge color="information" badgeStyle="subtle" client:load>Information</Badge>
+            <Badge color="success" badgeStyle="filled" client:load>Filled</Badge>
+            <Badge color="success" badgeStyle="outlined" client:load>Outlined</Badge>
+          </div>
+        </Card>
+
+        <!-- Alerts -->
+        <Card cardStyle="default" client:load>
+          <p class="demo-card-label">Alert · all variants</p>
+          <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+            <Alert variant="success" title="Changes saved" client:load>Your updates have been applied successfully.</Alert>
+            <Alert variant="error" title="Validation failed" client:load>Please fix the errors before continuing.</Alert>
+            <Alert variant="warning" title="Heads up" client:load>This action cannot be undone.</Alert>
+            <Alert variant="information" title="New feature" client:load>Dark mode is coming in v2.</Alert>
+          </div>
+        </Card>
+
+        <!-- Spinner -->
+        <Card cardStyle="default" client:load>
+          <p class="demo-card-label">Spinner · sizes</p>
+          <div class="demo-row">
+            <Spinner size="sm" client:load />
+            <Spinner size="md" client:load />
+            <Spinner size="lg" client:load />
+            <Spinner size="md" color="var(--action-secondary)" client:load />
+            <Spinner size="md" color="var(--status-error)" client:load />
+          </div>
+        </Card>
+      </div>
+
+      <div class="section-links">
+        <a href="/components/button" class="section-link">All button variants →</a>
+        <a href="/components/badge" class="section-link">All badge variants →</a>
+        <a href="/components/alert" class="section-link">Alert component →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUILT WITH CEDAR -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-label">Built with Cedar</h2>
+      <h3 class="section-title">DayLog — a real-world app</h3>
+      <p class="section-desc">
+        Cedar isn't a demo system. DayLog is a production PWA built entirely on Cedar
+        tokens and components — proving the system holds up under real product
+        requirements.
+      </p>
+      <div class="bwc-card">
+        <div class="bwc-meta">
+          <Badge color="success" badgeStyle="subtle" size="sm" client:load>Live app</Badge>
+          <Badge color="information" badgeStyle="subtle" size="sm" client:load>PWA</Badge>
+          <Badge color="default" badgeStyle="subtle" size="sm" client:load>Cedar tokens</Badge>
+        </div>
+        <h4 class="bwc-title">DayLog</h4>
+        <p class="bwc-desc">
+          A personal productivity tool built with Cedar components. Shipping tokens,
+          spacing, color semantics, and component patterns from day one.
+        </p>
+        <Button color="brand" variant="outlined" client:load>
+          View DayLog (coming soon)
+        </Button>
+      </div>
+      <a href="/built-with-cedar" class="section-link" style="margin-top: var(--space-4); display: inline-block;">Full case study →</a>
+    </div>
+  </section>
+
+  <!-- NAV CARDS -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <h2 class="section-label">Explore Cedar</h2>
+      <div class="nav-card-grid">
+        {[
+          { href: '/tokens/color', title: 'Color', desc: '214 variables · 10 collections · Primitive + semantic layers', badge: 'Done' },
+          { href: '/components/button', title: 'Components', desc: '8 component pages with live demos · All built on Cedar tokens', badge: 'Done' },
+          { href: '/built-with-cedar', title: 'Built with Cedar', desc: 'DayLog · A real PWA using this exact system in production', badge: 'Live' },
+          { href: '/roadmap', title: 'Roadmap', desc: 'v1 shipped · v2 in planning · Dark mode, Storybook, more components', badge: 'v2 coming' },
+        ].map(card => (
+          <a href={card.href} class="nav-card">
+            <div class="nav-card-top">
+              <h3 class="nav-card-title">{card.title}</h3>
+              <Badge color="success" badgeStyle="subtle" size="sm" client:load>{card.badge}</Badge>
+            </div>
+            <p class="nav-card-desc">{card.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Hero ── */
+  .hero {
+    background-color: var(--neutral-950);
+    color: var(--text-inverse);
+    padding: var(--space-8) var(--grid-margin);
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .hero-inner {
+    max-width: var(--grid-max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .hero-eyebrow {
+    display: flex;
+  }
+
+  .hero-title {
+    font-size: var(--title-lg);
+    font-weight: 700;
+    line-height: 1.15;
+    max-width: 640px;
+    color: var(--text-inverse);
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--brand-primary-300);
+  }
+
+  .hero-sub {
+    font-size: var(--body-md);
+    color: var(--neutral-400);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .hero-actions a {
+    display: contents;
+  }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--body-sm);
+    color: var(--neutral-600);
+    flex-wrap: wrap;
+  }
+
+  .hero-stats .sep {
+    color: var(--neutral-800);
+  }
+
+  /* ── Sections ── */
+  .section {
+    padding: 80px var(--grid-margin);
+  }
+
+  .section-alt {
+    background-color: var(--bg-base);
+  }
+
+  .section-inner {
+    max-width: var(--grid-max-width);
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: var(--body-sm);
+    font-weight: 600;
+    color: var(--action-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--space-2);
+  }
+
+  .section-title {
+    font-size: var(--title-md);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-3);
+  }
+
+  .section-desc {
+    font-size: var(--body-md);
+    color: var(--text-subtle);
+    max-width: 560px;
+    line-height: 1.6;
+    margin-bottom: var(--space-6);
+  }
+
+  .section-links {
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+    margin-top: var(--space-6);
+  }
+
+  .section-link {
+    font-size: var(--body-sm);
+    color: var(--action-primary);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .section-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Token preview ── */
+  .token-preview-grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 767px) {
+    .token-preview-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .token-card {
+    background-color: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+  }
+
+  .token-card-label {
+    font-size: var(--size-xs);
+    font-weight: 600;
+    font-family: var(--font-mono);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-3);
+  }
+
+  .swatch-row {
+    display: flex;
+    gap: 4px;
+    height: 40px;
+  }
+
+  .swatch {
+    flex: 1;
+    border-radius: var(--radius-sm);
+  }
+
+  .semantic-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .semantic-chip {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+  }
+
+  .space-row {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-4);
+  }
+
+  .space-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .space-bar {
+    background-color: var(--action-primary);
+    border-radius: var(--radius-sm);
+    min-width: 4px;
+    min-height: 4px;
+  }
+
+  .space-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-subtle);
+  }
+
+  .radius-row {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .radius-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .radius-box {
+    width: 40px;
+    height: 40px;
+    background-color: var(--action-primary);
+    opacity: 0.8;
+  }
+
+  .radius-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-subtle);
+  }
+
+  /* ── Component demos ── */
+  .demo-grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 767px) {
+    .demo-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .demo-card-label {
+    font-size: var(--size-xs);
+    font-family: var(--font-mono);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    font-weight: 600;
+  }
+
+  .demo-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .demo-row.wrap {
+    flex-wrap: wrap;
+  }
+
+  /* ── Built with Cedar ── */
+  .bwc-card {
+    background-color: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .bwc-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .bwc-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+  }
+
+  .bwc-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    line-height: 1.6;
+  }
+
+  /* ── Nav cards ── */
+  .nav-card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 900px) {
+    .nav-card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .nav-card-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .nav-card {
+    background-color: var(--bg-faint);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .nav-card:hover {
+    border-color: var(--border-brand);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .nav-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .nav-card-title {
+    font-size: var(--heading-sm);
+    font-weight: 600;
+    color: var(--text-base);
+  }
+
+  .nav-card-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    line-height: 1.5;
+  }
+</style>

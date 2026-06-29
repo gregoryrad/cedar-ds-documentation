@@ -1,0 +1,84 @@
+---
+import Nav from '../components/Nav.astro';
+import '../cedar/tokens/tokens.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Cedar Design System documentation' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} — Cedar DS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <div class="footer-inner">
+        <span>Cedar Design System</span>
+        <span class="footer-sep">·</span>
+        <span>Built with Cedar</span>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  :global(*, *::before, *::after) {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :global(html) {
+    font-family: var(--font-base);
+    background-color: var(--bg-faint);
+    color: var(--text-base);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :global(body) {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  footer {
+    border-top: var(--border-width-base) solid var(--border-subtle);
+    padding: var(--space-6) var(--grid-margin);
+    margin-top: var(--space-8);
+  }
+
+  .footer-inner {
+    max-width: var(--grid-max-width);
+    margin: 0 auto;
+    display: flex;
+    gap: var(--space-2);
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .footer-sep {
+    color: var(--border-subtle);
+  }
+</style>

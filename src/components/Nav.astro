@@ -1,0 +1,237 @@
+---
+const currentPath = Astro.url.pathname;
+
+const tokenLinks = [
+  { href: '/tokens/color', label: 'Color' },
+  { href: '/tokens/spacing', label: 'Spacing' },
+  { href: '/tokens/radius', label: 'Radius' },
+  { href: '/tokens/typography', label: 'Typography' },
+  { href: '/tokens/border', label: 'Border' },
+];
+
+const componentLinks = [
+  { href: '/components/button', label: 'Button' },
+  { href: '/components/input', label: 'Input' },
+  { href: '/components/checkbox', label: 'Checkbox' },
+  { href: '/components/badge', label: 'Badge' },
+  { href: '/components/card', label: 'Card' },
+  { href: '/components/alert', label: 'Alert' },
+  { href: '/components/status', label: 'Status' },
+  { href: '/components/tabs', label: 'Tabs' },
+];
+
+function isActive(href: string) {
+  return currentPath === href || currentPath.startsWith(href + '/');
+}
+
+const isTokens = currentPath.startsWith('/tokens');
+const isComponents = currentPath.startsWith('/components');
+---
+
+<nav aria-label="Site navigation">
+  <div class="nav-inner">
+    <a href="/" class="wordmark" aria-label="Cedar DS home">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect width="24" height="24" rx="6" fill="var(--action-primary)" />
+        <path d="M7 12.5L10.5 16L17 8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Cedar</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li class="nav-group">
+        <button
+          class:list={['nav-group-trigger', { 'is-active': isTokens }]}
+          aria-expanded={isTokens}
+          aria-haspopup="true"
+        >
+          Tokens
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <ul class="nav-dropdown" role="list">
+          {tokenLinks.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class:list={['nav-link', { 'is-active': isActive(link.href) }]}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </li>
+
+      <li class="nav-group">
+        <button
+          class:list={['nav-group-trigger', { 'is-active': isComponents }]}
+          aria-expanded={isComponents}
+          aria-haspopup="true"
+        >
+          Components
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <ul class="nav-dropdown" role="list">
+          {componentLinks.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class:list={['nav-link', { 'is-active': isActive(link.href) }]}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </li>
+
+      <li>
+        <a
+          href="/built-with-cedar"
+          class:list={['nav-link', { 'is-active': isActive('/built-with-cedar') }]}
+        >
+          Built with Cedar
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="/roadmap"
+          class:list={['nav-link', { 'is-active': isActive('/roadmap') }]}
+        >
+          Roadmap
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--bg-base);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .nav-inner {
+    max-width: var(--grid-max-width);
+    margin: 0 auto;
+    padding: 0 var(--grid-margin);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+  }
+
+  .wordmark {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    font-size: var(--body-md);
+    font-weight: 600;
+    color: var(--text-base);
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    list-style: none;
+  }
+
+  .nav-group {
+    position: relative;
+  }
+
+  .nav-group:hover .nav-dropdown {
+    display: flex;
+  }
+
+  .nav-group-trigger {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: var(--space-1) var(--space-3);
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: var(--font-base);
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    border-radius: var(--radius-md);
+    transition: color 0.15s, background-color 0.15s;
+  }
+
+  .nav-group-trigger:hover,
+  .nav-group-trigger.is-active {
+    color: var(--text-base);
+    background-color: var(--bg-faint);
+  }
+
+  .nav-dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: calc(100% + var(--space-1));
+    left: 0;
+    background-color: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2);
+    min-width: 160px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    list-style: none;
+    gap: 2px;
+  }
+
+  .nav-link {
+    display: block;
+    padding: var(--space-1) var(--space-3);
+    text-decoration: none;
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    border-radius: var(--radius-md);
+    transition: color 0.15s, background-color 0.15s;
+  }
+
+  .nav-link:hover {
+    color: var(--text-base);
+    background-color: var(--bg-faint);
+  }
+
+  .nav-link.is-active {
+    color: var(--action-primary);
+    font-weight: 500;
+    background-color: var(--status-success-bg);
+  }
+</style>
+
+<script>
+  // Toggle dropdowns on click for keyboard/touch support
+  document.querySelectorAll('.nav-group-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const group = trigger.closest('.nav-group');
+      const dropdown = group?.querySelector('.nav-dropdown') as HTMLElement | null;
+      if (!dropdown) return;
+      const isOpen = dropdown.style.display === 'flex';
+      dropdown.style.display = isOpen ? '' : 'flex';
+    });
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('.nav-group')) {
+      document.querySelectorAll('.nav-dropdown').forEach(d => {
+        (d as HTMLElement).style.display = '';
+      });
+    }
+  });
+</script>

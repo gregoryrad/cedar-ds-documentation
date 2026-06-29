@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Checkbox">
+  <PageHeader
+    eyebrow="Components"
+    title="Checkbox"
+    description="Three-layer component set: Checkbox Control (the box itself), Checkbox (control + label), Checkbox Full (full-width with description). 18 variants each. React implementation in progress."
+  />
+
+  <PageContent>
+    <section>
+      <div class="status-block">
+        <div class="status-row">
+          <Badge color="success" badgeStyle="subtle" client:load>Figma: Done — 54 variants</Badge>
+          <Badge color="warning" badgeStyle="subtle" client:load>React: In progress</Badge>
+        </div>
+        <p class="status-desc">
+          The layered component set (Control → Checkbox → Checkbox Full) is a good example
+          of Cedar's compositional design. React implementation follows the same three-layer
+          approach: a headless control, a labeled wrapper, and a full-width form field.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Component layers</h2>
+      <div class="layer-table">
+        {[
+          { layer: 'Checkbox Control', desc: 'The checkbox box itself. States: Default, Checked, Indeterminate, Error, Disabled, Disabled Checked. Sizes: Large, Medium, Small.' },
+          { layer: 'Checkbox', desc: 'Control + label text. Same state × size matrix as the Control.' },
+          { layer: 'Checkbox Full', desc: 'Full-width with label and description text. Suitable for settings panels and permission lists.' },
+        ].map(row => (
+          <div class="layer-row">
+            <strong class="layer-name">{row.layer}</strong>
+            <p class="layer-desc">{row.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Planned tokens</h2>
+      <div class="token-table">
+        {[
+          { token: 'action/primary', usage: 'Checked background' },
+          { token: 'status/error', usage: 'Error state border' },
+          { token: 'border/base', usage: 'Unchecked border color' },
+          { token: 'bg/disabled', usage: 'Disabled background' },
+          { token: 'action/on-primary', usage: 'Checkmark icon color' },
+          { token: 'radius/sm', usage: 'Checkbox border radius' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .status-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .status-row {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .status-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    line-height: 1.6;
+    max-width: 560px;
+  }
+
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-4);
+  }
+
+  .layer-table, .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .layer-row {
+    padding: var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .layer-row:last-child { border-bottom: none; }
+  .layer-row:hover { background: var(--bg-faint); }
+
+  .layer-name {
+    font-size: var(--body-sm);
+    font-weight: 600;
+    color: var(--text-base);
+  }
+
+  .layer-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    line-height: 1.5;
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+</style>

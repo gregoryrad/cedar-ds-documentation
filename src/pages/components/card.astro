@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import { Card } from '../../cedar/components/Card/Card';
+---
+
+<BaseLayout title="Card">
+  <PageHeader
+    eyebrow="Components"
+    title="Card"
+    description="Three style variants for grouping related content. Cards are purely structural — they provide the container; content composition is up to the consumer."
+  />
+
+  <PageContent>
+    <section>
+      <h2 class="section-title">Variants</h2>
+      <div class="demo-grid">
+        <div>
+          <p class="variant-label">Default</p>
+          <Card cardStyle="default" client:load>
+            <p class="card-meta">card/style=default</p>
+            <p class="card-title">Default Card</p>
+            <p class="card-body">White background with a 1px subtle border. The standard surface for most content grouping scenarios.</p>
+          </Card>
+        </div>
+        <div>
+          <p class="variant-label">Elevated</p>
+          <Card cardStyle="elevated" client:load>
+            <p class="card-meta">card/style=elevated</p>
+            <p class="card-title">Elevated Card</p>
+            <p class="card-body">No border. A layered shadow lifts it off the page. Use for featured or interactive card patterns.</p>
+          </Card>
+        </div>
+        <div>
+          <p class="variant-label">Flat</p>
+          <Card cardStyle="flat" client:load>
+            <p class="card-meta">card/style=flat</p>
+            <p class="card-title">Flat Card</p>
+            <p class="card-body">Uses bg/faint for a low-contrast surface that blends into the page background. Good for secondary content.</p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'bg/base', usage: 'Default and Elevated background' },
+          { token: 'bg/faint', usage: 'Flat variant background' },
+          { token: 'border/subtle', usage: 'Default variant border color' },
+          { token: 'border-width/base', usage: 'Default variant border width' },
+          { token: 'radius/xl', usage: 'Container border radius (16px)' },
+          { token: 'space/6', usage: 'Internal padding (24px)' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-4);
+  }
+
+  .demo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 767px) {
+    .demo-grid { grid-template-columns: 1fr; }
+  }
+
+  .variant-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+  }
+
+  .card-meta {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-3);
+  }
+
+  .card-title {
+    font-size: var(--heading-md);
+    font-weight: 600;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .card-body {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    line-height: 1.6;
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+</style>

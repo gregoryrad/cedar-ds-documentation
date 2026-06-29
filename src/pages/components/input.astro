@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Input">
+  <PageHeader
+    eyebrow="Components"
+    title="Input"
+    description="Text input with 75 Figma variants (state × size × adornment). Wraps in Form Field for label + helper text. React implementation coming in the next session."
+  />
+
+  <PageContent>
+    <section>
+      <div class="status-block">
+        <div class="status-row">
+          <Badge color="success" badgeStyle="subtle" client:load>Figma: Done — 90 variants</Badge>
+          <Badge color="warning" badgeStyle="subtle" client:load>React: In progress</Badge>
+        </div>
+        <p class="status-desc">
+          The Input component (Input Field + Form Field) is fully specified in Figma.
+          React implementation is scheduled for the next build session. This page will
+          show live demos once the component is implemented.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Variants (from Figma)</h2>
+      <div class="variant-table">
+        {[
+          { dimension: 'State', values: 'Default, Focus, Filled, Error, Disabled' },
+          { dimension: 'Size', values: 'Large, Medium' },
+          { dimension: 'Adornment', values: 'None, Leading icon, Trailing icon, Both' },
+          { dimension: 'Form Field sizes', values: 'Large, Medium, Small (with label + helper text)' },
+        ].map(row => (
+          <div class="variant-row">
+            <span class="variant-dim">{row.dimension}</span>
+            <span class="variant-vals">{row.values}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Planned tokens</h2>
+      <div class="token-table">
+        {[
+          { token: 'bg/base', usage: 'Input background' },
+          { token: 'border/base, border/subtle', usage: 'Border colors (focus vs. default)' },
+          { token: 'border-width/base, border-width/bold', usage: 'Default vs. focus border width' },
+          { token: 'action/primary', usage: 'Focus ring color' },
+          { token: 'status/error', usage: 'Error state border and icon' },
+          { token: 'text/base, text/subtle, text/disabled', usage: 'Input text, placeholder, disabled' },
+          { token: 'radius/md', usage: 'Input border radius' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .status-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .status-row {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .status-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    line-height: 1.6;
+    max-width: 560px;
+  }
+
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-4);
+  }
+
+  .variant-table, .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .variant-row, .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .variant-row:last-child, .token-row:last-child { border-bottom: none; }
+  .variant-row:hover, .token-row:hover { background: var(--bg-faint); }
+
+  .variant-dim {
+    font-size: var(--body-sm);
+    font-weight: 600;
+    color: var(--text-base);
+  }
+
+  .variant-vals {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+</style>

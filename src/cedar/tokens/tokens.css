@@ -1,0 +1,334 @@
+/* ============================================================
+   Cedar Design System — Token Reference
+   Source of truth: Figma Variables (1:1 naming)
+   Convention: figma/collection/name → --name (/ → -)
+   ============================================================ */
+
+:root {
+
+  /* ----------------------------------------------------------
+     COLOR / PRIMITIVES — brand/primary
+     ---------------------------------------------------------- */
+  --brand-primary-100: #DEFC9C;
+  --brand-primary-150: #CDFB6A;
+  --brand-primary-200: #ACF906;
+  --brand-primary-300: #8AC705;
+  --brand-primary-400: #78AE04;
+  --brand-primary-500: #679504;
+  --brand-primary-600: #567D03;
+  --brand-primary-700: #456303;
+  --brand-primary-800: #344B02;
+  --brand-primary-900: #223201;
+  --brand-primary-950: #111901;
+
+  /* brand/amber */
+  --brand-amber-100: #FEF8EC;
+  --brand-amber-150: #FCE6BE;
+  --brand-amber-200: #F9D490;
+  --brand-amber-300: #F7C362;
+  --brand-amber-400: #F4B134;
+  --brand-amber-500: #F0A00D;
+  --brand-amber-600: #C7850A;
+  --brand-amber-700: #9D6908;
+  --brand-amber-800: #744E06;
+  --brand-amber-900: #4B3204;
+  --brand-amber-950: #221702;
+
+  /* brand/orange */
+  --brand-orange-100: #FEF4EC;
+  --brand-orange-150: #FBD8B8;
+  --brand-orange-200: #F8BC84;
+  --brand-orange-300: #F5A050;
+  --brand-orange-400: #F2841C;
+  --brand-orange-500: #DA700D;
+  --brand-orange-600: #B65D0B;
+  --brand-orange-700: #914A08;
+  --brand-orange-800: #6C3706;
+  --brand-orange-900: #472404;
+  --brand-orange-950: #221102;
+
+  /* brand/sienna */
+  --brand-sienna-100: #FFF1EB;
+  --brand-sienna-150: #FECFBD;
+  --brand-sienna-200: #FDAE8F;
+  --brand-sienna-300: #FD8D61;
+  --brand-sienna-400: #FC6C34;
+  --brand-sienna-500: #FB4B06;
+  --brand-sienna-600: #CF3D03;
+  --brand-sienna-700: #A12F02;
+  --brand-sienna-800: #742202;
+  --brand-sienna-900: #4B1601;
+  --brand-sienna-950: #230A01;
+
+  /* error */
+  --error-100: #EACFCF;
+  --error-150: #E8C0C0;
+  --error-200: #E7B2B2;
+  --error-300: #E49595;
+  --error-400: #E17878;
+  --error-500: #DF5B5B;
+  --error-600: #B24949;
+  --error-700: #863737;
+  --error-800: #592424;
+  --error-900: #2D1212;
+  --error-950: #160909;
+
+  /* information */
+  --information-100: #CBD9F0;
+  --information-150: #BACEF2;
+  --information-200: #AAC5F4;
+  --information-300: #89B1F7;
+  --information-400: #689DFB;
+  --information-500: #478AFF;
+  --information-600: #396ECC;
+  --information-700: #2B5399;
+  --information-800: #1C3766;
+  --information-900: #0E1C33;
+  --information-950: #070E1A;
+
+  /* warning */
+  --warning-100: #F0D9CB;
+  --warning-150: #F2CEBA;
+  --warning-200: #F4C5AA;
+  --warning-300: #F7B189;
+  --warning-400: #FB9D68;
+  --warning-500: #FF8A47;
+  --warning-600: #CC6E39;
+  --warning-700: #99532B;
+  --warning-800: #66371C;
+  --warning-900: #331C0E;
+  --warning-950: #1A0E07;
+
+  /* success */
+  --success-100: #DBF7D4;
+  --success-150: #C9F2BF;
+  --success-200: #B7EEAA;
+  --success-300: #94E67F;
+  --success-400: #70DD55;
+  --success-500: #4CD52A;
+  --success-600: #3DAA22;
+  --success-700: #2E8019;
+  --success-800: #1E5511;
+  --success-900: #17400D;
+  --success-950: #0F2B08;
+
+  /* neutral */
+  --neutral-50:  #F7F7F7;
+  --neutral-100: #E2E2E2;
+  --neutral-150: #DCDCDC;
+  --neutral-200: #D8D8D8;
+  --neutral-300: #CCCCCC;
+  --neutral-400: #C2C2C2;
+  --neutral-500: #B8B8B8;
+  --neutral-600: #939393;
+  --neutral-700: #6E6E6E;
+  --neutral-800: #4A4A4A;
+  --neutral-900: #252525;
+  --neutral-950: #121212;
+
+  /* foundations */
+  --foundations-white: #FFFFFF;
+  --foundations-black: #000000;
+
+  /* ----------------------------------------------------------
+     COLOR / SEMANTIC — backgrounds
+     ---------------------------------------------------------- */
+  --bg-base:     #FFFFFF;
+  --bg-subtle:   #CCCCCC;
+  --bg-muted:    #DCDCDC;
+  --bg-raised:   #DCDCDC;
+  --bg-disabled: #E2E2E2;
+  --bg-faint:    #F7F7F7;
+
+  /* text */
+  --text-base:     #252525;
+  --text-subtle:   #939393;
+  --text-inverse:  #FFFFFF;
+  --text-on-brand: #FFFFFF;
+  --text-disabled: #C2C2C2;
+
+  /* borders (color role — distinct from border-width-* below) */
+  --border-base:     #252525;
+  --border-subtle:   #CCCCCC;
+  --border-brand:    #679504;
+  --border-disabled: #DCDCDC;
+
+  /* actions */
+  --action-primary:          #679504;
+  --action-primary-hover:    #567D03;
+  --action-primary-pressed:  #456303;
+  --action-primary-disabled: #E2E2E2;
+  --action-on-primary:       #FFFFFF;
+
+  --action-secondary:         #F0A00D;
+  --action-secondary-hover:   #C7850A;
+  --action-secondary-pressed: #9D6908;
+
+  --action-accent:         #DA700D;
+  --action-accent-hover:   #B65D0B;
+  --action-accent-pressed: #914A08;
+
+  --action-destructive:         #CF3D03;
+  --action-destructive-hover:   #A12F02;
+  --action-destructive-pressed: #742202;
+
+  --action-neutral:         #939393;
+  --action-neutral-hover:   #6E6E6E;
+  --action-neutral-pressed: #4A4A4A;
+
+  /* status */
+  --status-error:       #DF5B5B;
+  --status-warning:     #C7850A;
+  --status-success:     #4CD52A;
+  --status-information: #478AFF;
+
+  --status-on-error:       #FFFFFF;
+  --status-on-warning:     #FEF8EC;
+  --status-on-success:     #FFFFFF;
+  --status-on-information: #FFFFFF;
+
+  --status-error-bg:       #EACFCF;
+  --status-warning-bg:     #FEF8EC;
+  --status-success-bg:     #DBF7D4;
+  --status-information-bg: #CBD9F0;
+
+  /* ----------------------------------------------------------
+     SPACE / SCALE — raw 4px grid
+     ---------------------------------------------------------- */
+  --scale-0:    0px;
+  --scale-25:   1px;
+  --scale-50:   2px;
+  --scale-100:  4px;
+  --scale-200:  8px;
+  --scale-300:  12px;
+  --scale-400:  16px;
+  --scale-500:  20px;
+  --scale-600:  24px;
+  --scale-700:  28px;
+  --scale-800:  32px;
+  --scale-900:  36px;
+  --scale-1000: 40px;
+  --scale-1100: 48px;
+  --scale-1200: 56px;
+  --scale-1300: 64px;
+  --scale-1400: 72px;
+  --scale-1500: 96px;
+  --scale-1600: 128px;
+  --scale-1700: 256px;
+  --scale-1800: 999px;
+
+  /* named space tokens (semantic aliases of the scale) */
+  --space-0:  0px;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+
+  /* ----------------------------------------------------------
+     RADIUS
+     ---------------------------------------------------------- */
+  --radius-none: 0px;
+  --radius-sm:   1px;
+  --radius-md:   2px;
+  --radius-lg:   8px;
+  --radius-xl:   16px;
+  --radius-full: 999px;
+
+  /* ----------------------------------------------------------
+     BORDER / WEIGHTS
+     (named border-width-* to avoid collision with border color tokens)
+     ---------------------------------------------------------- */
+  --border-width-base:   1px;
+  --border-width-bold:   2px;
+  --border-width-x-bold: 3px;
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY — FONT FAMILIES
+     ---------------------------------------------------------- */
+  --font-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Fira Code', 'Fira Mono', ui-monospace, monospace;
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY — SIZES (Desktop defaults; mobile via media query)
+     ---------------------------------------------------------- */
+  --size-xs:  14px;
+  --size-sm:  18px;
+  --size-md:  20px;
+  --size-lg:  24px;
+  --size-xl:  32px;
+  --size-2xl: 40px;
+  --size-3xl: 56px;
+  --size-4xl: 72px;
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY — LINE HEIGHTS (Desktop defaults)
+     ---------------------------------------------------------- */
+  --line-height-xs:  16px;
+  --line-height-sm:  28px;
+  --line-height-md:  36px;
+  --line-height-lg:  48px;
+  --line-height-xl:  64px;
+  --line-height-2xl: 72px;
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY — ROLES
+     ---------------------------------------------------------- */
+  --body-sm:    16px;
+  --body-md:    18px;
+  --body-lg:    20px;
+  --heading-sm: 18px;
+  --heading-md: 20px;
+  --heading-lg: 24px;
+  --title-sm:   20px;
+  --title-md:   24px;
+  --title-lg:   32px;
+
+  /* ----------------------------------------------------------
+     GRID / LAYOUT (Desktop defaults)
+     ---------------------------------------------------------- */
+  --grid-columns-count: 12;
+  --grid-gutter:        32px;
+  --grid-margin:        80px;
+  --grid-max-width:     1280px;
+}
+
+/* ----------------------------------------------------------
+   RESPONSIVE — Mobile overrides (mirrors Figma Mobile mode)
+   ---------------------------------------------------------- */
+@media (max-width: 767px) {
+  :root {
+    --size-xs:  12px;
+    --size-sm:  16px;
+    --size-md:  18px;
+    --size-lg:  20px;
+    --size-xl:  24px;
+    --size-2xl: 32px;
+    --size-3xl: 40px;
+    --size-4xl: 48px;
+
+    --line-height-sm:  24px;
+    --line-height-md:  32px;
+    --line-height-lg:  40px;
+    --line-height-xl:  48px;
+    --line-height-2xl: 56px;
+
+    --grid-columns-count: 4;
+    --grid-gutter:        16px;
+    --grid-margin:        16px;
+    --grid-max-width:     375px;
+  }
+}
+
+/* Tablet overrides */
+@media (min-width: 768px) and (max-width: 1279px) {
+  :root {
+    --grid-columns-count: 8;
+    --grid-gutter:        24px;
+    --grid-margin:        32px;
+    --grid-max-width:     768px;
+  }
+}
