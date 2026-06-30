@@ -9,30 +9,30 @@
   /* ----------------------------------------------------------
      COLOR / PRIMITIVES — brand/primary
      ---------------------------------------------------------- */
-  --brand-primary-100: #DEFC9C;
-  --brand-primary-150: #CDFB6A;
-  --brand-primary-200: #ACF906;
-  --brand-primary-300: #8AC705;
-  --brand-primary-400: #78AE04;
-  --brand-primary-500: #679504;
-  --brand-primary-600: #567D03;
-  --brand-primary-700: #456303;
-  --brand-primary-800: #344B02;
-  --brand-primary-900: #223201;
-  --brand-primary-950: #111901;
+  --brand-primary-100: #DDF5F8;
+  --brand-primary-150: #C2EEF4;
+  --brand-primary-200: #9AE5EF;
+  --brand-primary-300: #45D9ED;
+  --brand-primary-400: #04BFDC;
+  --brand-primary-500: #0097A7;
+  --brand-primary-600: #008394;
+  --brand-primary-700: #006A7A;
+  --brand-primary-800: #005261;
+  --brand-primary-900: #003742;
+  --brand-primary-950: #002129;
 
-  /* brand/amber */
-  --brand-amber-100: #FEF8EC;
-  --brand-amber-150: #FCE6BE;
-  --brand-amber-200: #F9D490;
-  --brand-amber-300: #F7C362;
-  --brand-amber-400: #F4B134;
-  --brand-amber-500: #F0A00D;
-  --brand-amber-600: #C7850A;
-  --brand-amber-700: #9D6908;
-  --brand-amber-800: #744E06;
-  --brand-amber-900: #4B3204;
-  --brand-amber-950: #221702;
+  /* brand/secondary (was brand/amber) */
+  --brand-secondary-100: #DDEEF8;
+  --brand-secondary-150: #C3E2F4;
+  --brand-secondary-200: #9AD0EF;
+  --brand-secondary-300: #51B3EC;
+  --brand-secondary-400: #149CEB;
+  --brand-secondary-500: #0F7DBD;
+  --brand-secondary-600: #0A69A3;
+  --brand-secondary-700: #075183;
+  --brand-secondary-800: #043E67;
+  --brand-secondary-900: #022845;
+  --brand-secondary-950: #01192D;
 
   /* brand/orange */
   --brand-orange-100: #FEF4EC;
@@ -47,18 +47,18 @@
   --brand-orange-900: #472404;
   --brand-orange-950: #221102;
 
-  /* brand/sienna */
-  --brand-sienna-100: #FFF1EB;
-  --brand-sienna-150: #FECFBD;
-  --brand-sienna-200: #FDAE8F;
-  --brand-sienna-300: #FD8D61;
-  --brand-sienna-400: #FC6C34;
-  --brand-sienna-500: #FB4B06;
-  --brand-sienna-600: #CF3D03;
-  --brand-sienna-700: #A12F02;
-  --brand-sienna-800: #742202;
-  --brand-sienna-900: #4B1601;
-  --brand-sienna-950: #230A01;
+  /* brand/accent (was brand/sienna) */
+  --brand-accent-100: #EEF7E3;
+  --brand-accent-150: #DFF0CC;
+  --brand-accent-200: #C9E5A9;
+  --brand-accent-300: #AAD47D;
+  --brand-accent-400: #96C95E;
+  --brand-accent-500: #8BC34A;
+  --brand-accent-600: #71AE37;
+  --brand-accent-700: #578E29;
+  --brand-accent-800: #3E6D1D;
+  --brand-accent-900: #274912;
+  --brand-accent-950: #172D0B;
 
   /* error */
   --error-100: #EACFCF;
@@ -100,17 +100,17 @@
   --warning-950: #1A0E07;
 
   /* success */
-  --success-100: #DBF7D4;
-  --success-150: #C9F2BF;
-  --success-200: #B7EEAA;
-  --success-300: #94E67F;
-  --success-400: #70DD55;
-  --success-500: #4CD52A;
-  --success-600: #3DAA22;
-  --success-700: #2E8019;
-  --success-800: #1E5511;
-  --success-900: #17400D;
-  --success-950: #0F2B08;
+  --success-100: #E1F4E6;
+  --success-150: #CBEBD4;
+  --success-200: #ABDEB9;
+  --success-300: #7CCB93;
+  --success-400: #4FBA73;
+  --success-500: #3A9C5E;
+  --success-600: #2D864F;
+  --success-700: #1F6B3F;
+  --success-800: #145230;
+  --success-900: #0D3B23;
+  --success-950: #072717;
 
   /* neutral */
   --neutral-50:  #F7F7F7;
@@ -150,27 +150,27 @@
   /* borders (color role — distinct from border-width-* below) */
   --border-base:     #252525;
   --border-subtle:   #CCCCCC;
-  --border-brand:    #679504;
+  --border-brand:    #0097A7;
   --border-disabled: #DCDCDC;
 
   /* actions */
-  --action-primary:          #679504;
-  --action-primary-hover:    #567D03;
-  --action-primary-pressed:  #456303;
+  --action-primary:          #0097A7;
+  --action-primary-hover:    #008394;
+  --action-primary-pressed:  #006A7A;
   --action-primary-disabled: #E2E2E2;
   --action-on-primary:       #FFFFFF;
 
-  --action-secondary:         #F0A00D;
-  --action-secondary-hover:   #C7850A;
-  --action-secondary-pressed: #9D6908;
+  --action-secondary:         #0F7DBD;
+  --action-secondary-hover:   #0A69A3;
+  --action-secondary-pressed: #075183;
 
-  --action-accent:         #DA700D;
-  --action-accent-hover:   #B65D0B;
-  --action-accent-pressed: #914A08;
+  --action-accent:         #8BC34A;
+  --action-accent-hover:   #71AE37;
+  --action-accent-pressed: #578E29;
 
-  --action-destructive:         #CF3D03;
-  --action-destructive-hover:   #A12F02;
-  --action-destructive-pressed: #742202;
+  --action-destructive:         #B24949;
+  --action-destructive-hover:   #863737;
+  --action-destructive-pressed: #592424;
 
   --action-neutral:         #939393;
   --action-neutral-hover:   #6E6E6E;
@@ -178,18 +178,18 @@
 
   /* status */
   --status-error:       #DF5B5B;
-  --status-warning:     #C7850A;
-  --status-success:     #4CD52A;
+  --status-warning:     #B65D0B;
+  --status-success:     #1F6B3F;
   --status-information: #478AFF;
 
   --status-on-error:       #FFFFFF;
-  --status-on-warning:     #FEF8EC;
+  --status-on-warning:     #FEF4EC;
   --status-on-success:     #FFFFFF;
   --status-on-information: #FFFFFF;
 
   --status-error-bg:       #EACFCF;
-  --status-warning-bg:     #FEF8EC;
-  --status-success-bg:     #DBF7D4;
+  --status-warning-bg:     #FEF4EC;
+  --status-success-bg:     #E1F4E6;
   --status-information-bg: #CBD9F0;
 
   /* ----------------------------------------------------------
