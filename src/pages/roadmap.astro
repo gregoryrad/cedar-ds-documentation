@@ -15,10 +15,22 @@ const v1 = [
   { item: 'Deployed to Vercel' },
 ];
 
-const v2Components = [
-  'Toggle', 'Radio', 'Select', 'Chip', 'Icon Button',
-  'Avatar', 'Divider', 'Modal', 'Tooltip', 'Toast',
-  'Breadcrumb', 'Pagination', 'Menu',
+const v2a = [
+  { item: 'Modal — portal dialog with focus trap, Escape, and backdrop close' },
+  { item: 'Toast — context-based notification stack with 5 variants and auto-dismiss' },
+  { item: 'Tooltip — positioned overlay with getBoundingClientRect placement' },
+  { item: 'Breadcrumb — nav landmark with aria-current="page" on active item' },
+  { item: 'Pagination — ellipsis compression, keyboard nav, prev/next controls' },
+  { item: 'Menu — dropdown with keyboard navigation, dividers, labels, destructive items' },
+];
+
+const v2b = [
+  { item: 'Select — full combobox ARIA pattern with aria-activedescendant and SelectField wrapper' },
+  { item: 'Toggle — role="switch" binary control in sm/md with animated thumb' },
+  { item: 'Radio — native input pattern mirroring Checkbox; RadioGroup with fieldset+legend' },
+  { item: 'Icon Button — square button sharing Button\'s variant × color system; aria-label required' },
+  { item: 'Avatar — initials with deterministic color palette, status dot, AvatarGroup stacking' },
+  { item: 'Divider — horizontal/vertical, 3 variants, optional centered label' },
 ];
 
 const v3Components = [
@@ -40,7 +52,7 @@ const v2Features = [
   <PageHeader
     eyebrow="What's planned"
     title="Roadmap"
-    description="Cedar v1 ships a complete token reference and live demos for 8 core components. Every gap below is a deliberate v2 decision — not a missing piece of the system."
+    description="Cedar v1 and v2 are both shipped — 20 components documented with live React demos. v2c features and Data Grid are the remaining scope."
   />
 
   <PageContent>
@@ -61,16 +73,36 @@ const v2Features = [
 
     <section>
       <div class="version-header">
-        <h2 class="version-title">v2 — Components</h2>
-        <Badge color="information" badgeStyle="subtle" client:load>Planned</Badge>
+        <h2 class="version-title">v2a — Components</h2>
+        <Badge color="success" badgeStyle="subtle" client:load>Shipped</Badge>
       </div>
       <p class="version-desc">
-        All Cedar components are fully built in Figma. These 13 need React implementations
-        and doc pages. Priority order driven by DayLog usage patterns.
+        Six components with no prior doc page, prioritised by Cedar Ops coverage gaps.
       </p>
-      <div class="chip-grid">
-        {v2Components.map(name => (
-          <span class="component-chip">{name}</span>
+      <div class="item-list">
+        {v2a.map(item => (
+          <div class="item-row done">
+            <span class="item-check" aria-hidden="true">✓</span>
+            <span class="item-text">{item.item}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="version-header">
+        <h2 class="version-title">v2b — Components</h2>
+        <Badge color="success" badgeStyle="subtle" client:load>Shipped</Badge>
+      </div>
+      <p class="version-desc">
+        Six components following patterns already established in v1 — lower urgency, same quality bar.
+      </p>
+      <div class="item-list">
+        {v2b.map(item => (
+          <div class="item-row done">
+            <span class="item-check" aria-hidden="true">✓</span>
+            <span class="item-text">{item.item}</span>
+          </div>
         ))}
       </div>
     </section>
@@ -94,8 +126,8 @@ const v2Features = [
 
     <section>
       <div class="version-header">
-        <h2 class="version-title">v2 — Features</h2>
-        <Badge color="information" badgeStyle="subtle" client:load>Planned</Badge>
+        <h2 class="version-title">v2c — Features</h2>
+        <Badge color="information" badgeStyle="subtle" client:load>Up next</Badge>
       </div>
       <div class="feature-list">
         {v2Features.map(f => (
