@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import {
+  IconButtonVariants,
+  IconButtonSizes,
+  IconButtonDisabled,
+  IconButtonInContext,
+} from '../../cedar/components/IconButton/IconButtonDemo';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Icon Button">
+  <PageHeader
+    eyebrow="Components"
+    title="Icon Button"
+    description="A square button that holds a single icon. Shares the same variant and color system as Button — filled, outlined, ghost × brand, neutral, destructive, and more. aria-label is required."
+  />
+
+  <PageContent>
+
+    <!-- Variants -->
+    <section>
+      <h2 class="section-title">Variants &amp; colors</h2>
+      <p class="section-desc">Icon Button uses the same <code>variant</code> × <code>color</code> matrix as Button. Ghost neutral is the default — the right choice for toolbar and row actions where you want low visual noise.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <IconButtonVariants client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Sizes -->
+    <section>
+      <h2 class="section-title">Sizes</h2>
+      <p class="section-desc">Matches Button heights exactly so Icon Buttons can sit inline with text buttons without misalignment.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <IconButtonSizes client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Disabled -->
+    <section>
+      <h2 class="section-title">Disabled state</h2>
+      <div class="demo-block">
+        <div class="demo-row">
+          <IconButtonDisabled client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- In context -->
+    <section>
+      <h2 class="section-title">In context — row actions</h2>
+      <p class="section-desc">The most common pattern: a tight cluster of <code>sm</code> ghost icon buttons at the end of a list row. The destructive action (delete) uses <code>color="destructive"</code> to add weight without needing a label.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <IconButtonInContext client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Anatomy -->
+    <section>
+      <h2 class="section-title">Anatomy</h2>
+      <div class="token-table">
+        {[
+          { part: 'Container',  desc: 'Square <button> element. Width and height are set by the size prop.' },
+          { part: 'Icon',       desc: 'Passed as the icon prop. Should be an SVG with aria-hidden="true". Scale the SVG viewBox to match the size (16/18/20px).' },
+          { part: 'aria-label', desc: 'Required. The visible text equivalent — announced by screen readers in place of a visible label.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.part}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Sizes table -->
+    <section>
+      <h2 class="section-title">Size reference</h2>
+      <div class="token-table">
+        {[
+          { size: 'sm', wh: '32 × 32px', icon: '16px', use: 'Table rows, compact toolbars, side panels.' },
+          { size: 'md', wh: '40 × 40px', icon: '18px', use: 'Default. Most standalone icon button contexts.' },
+          { size: 'lg', wh: '48 × 48px', icon: '20px', use: 'Touch targets, hero-level actions.' },
+        ].map(row => (
+          <div class="token-row size-row">
+            <code class="token-name">{row.size}</code>
+            <code class="token-name">{row.wh}</code>
+            <code class="token-name">{row.icon}</code>
+            <span class="token-usage">{row.use}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Keyboard -->
+    <section>
+      <h2 class="section-title">Keyboard &amp; accessibility</h2>
+      <div class="token-table">
+        {[
+          { key: 'Space / Enter', desc: 'Activates the button.' },
+          { key: 'Tab',           desc: 'Moves focus to/from the button.' },
+          { key: 'aria-label',    desc: 'Required. Provides the accessible name. Screen readers announce it instead of icon content.' },
+          { key: 'aria-hidden',   desc: 'Set on the icon SVG. Prevents double-announcement of graphical content.' },
+          { key: 'Tooltip',       desc: 'Wrap in Tooltip with the same text as aria-label so sighted users can discover the action on hover.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.key}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section>
+      <h2 class="section-title">Usage guidance</h2>
+      <div class="token-table">
+        {[
+          { rule: 'Do',    desc: 'Always set aria-label. An icon-only button with no accessible name is a critical accessibility failure.' },
+          { rule: 'Do',    desc: 'Wrap Icon Button in Tooltip using the same string as aria-label — sighted users need discoverability too.' },
+          { rule: 'Do',    desc: 'Use ghost neutral for toolbar and list-row actions. Reserve filled/outlined for primary or persistent actions.' },
+          { rule: 'Do',    desc: 'Use color="destructive" for delete/remove/clear actions even in ghost variant — it adds intent without a label.' },
+          { rule: "Don't", desc: 'Use Icon Button if the action isn\'t universally understood from the icon alone. Add a text label instead.' },
+          { rule: "Don't", desc: 'Mix sizes within a single toolbar or button group.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class:list={['token-name', row.rule === "Don't" ? 'token-dont' : 'token-do']}>{row.rule}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'action/primary',           usage: 'Brand filled background, ghost/outlined color' },
+          { token: 'action/primary-hover',      usage: 'Brand hover state' },
+          { token: 'action/primary-disabled',   usage: 'Filled disabled background' },
+          { token: 'action/on-primary',         usage: 'Icon color on filled brand button' },
+          { token: 'action/neutral',            usage: 'Ghost neutral icon color (default)' },
+          { token: 'action/neutral-hover',      usage: 'Ghost neutral hover icon color' },
+          { token: 'action/destructive',        usage: 'Destructive variant icon color' },
+          { token: 'action/destructive-hover',  usage: 'Destructive hover icon color' },
+          { token: 'bg/faint',                  usage: 'Ghost variant hover background tint' },
+          { token: 'text/disabled',             usage: 'Disabled icon color' },
+          { token: 'border/disabled',           usage: 'Outlined disabled border' },
+          { token: 'border-width/base',         usage: 'Outlined border (1px)' },
+          { token: 'radius/md',                 usage: 'sm size corner radius' },
+          { token: 'radius/lg',                 usage: 'md and lg size corner radius' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="information" badgeStyle="subtle" client:load>Figma: In progress</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+      </div>
+    </section>
+
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .section-desc code {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    background: var(--bg-muted);
+    padding: 1px 5px;
+    border-radius: var(--radius-sm);
+    color: var(--text-base);
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .demo-row {
+    padding: var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .size-row { grid-template-columns: 0.5fr 1fr 0.75fr 3fr; }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-do   { color: var(--status-success); }
+  .token-dont { color: var(--status-error); }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+</style>
