@@ -1,0 +1,242 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import { ComponentActionsMenu, SettingsMenu } from '../../cedar/components/Menu/MenuDemo';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Menu">
+  <PageHeader
+    eyebrow="Components"
+    title="Menu"
+    description="A dropdown list of actions triggered by a button. Supports icons, keyboard shortcuts, section labels, dividers, destructive items, and disabled items."
+  />
+
+  <PageContent>
+
+    <!-- Examples -->
+    <section>
+      <h2 class="section-title">Examples</h2>
+      <p class="section-desc">Click the trigger to open. Arrow keys navigate items, Escape closes, Enter activates. Click outside to dismiss.</p>
+      <div class="demo-block">
+        <div class="demo-row labeled">
+          <span class="row-label">Actions menu</span>
+          <div class="demo-cell">
+            <ComponentActionsMenu client:load />
+          </div>
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">Settings menu</span>
+          <div class="demo-cell">
+            <SettingsMenu client:load />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Item types -->
+    <section>
+      <h2 class="section-title">Item types</h2>
+      <div class="token-table">
+        {[
+          { type: 'item',       desc: 'Standard action. Accepts label, optional icon, optional keyboard shortcut, and onClick handler.' },
+          { type: 'item (destructive)', desc: 'Red label and icon. Use for irreversible actions: delete, deactivate, revoke.' },
+          { type: 'item (disabled)',    desc: 'Greyed out, aria-disabled="true". Remains in the tab order but does not respond to click.' },
+          { type: 'divider',    desc: 'Horizontal rule separating groups of related actions. role="separator".' },
+          { type: 'label',      desc: 'Non-interactive section heading. Uppercase, subdued. Not a menu item — aria-hidden.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.type}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Keyboard -->
+    <section>
+      <h2 class="section-title">Keyboard &amp; accessibility</h2>
+      <div class="token-table">
+        {[
+          { key: 'Enter / Space',   desc: 'Open the menu from the trigger.' },
+          { key: '↑ / ↓',          desc: 'Move focus between enabled menu items.' },
+          { key: 'Home / End',      desc: 'Jump to first / last enabled item.' },
+          { key: 'Enter',           desc: 'Activate the focused menu item.' },
+          { key: 'Escape',          desc: 'Close the menu and return focus to the trigger.' },
+          { key: 'Click outside',   desc: 'Close the menu.' },
+          { key: 'role="menu"',     desc: 'Applied to the panel. Each item has role="menuitem".' },
+          { key: 'aria-haspopup',   desc: '"menu" on the trigger. aria-expanded reflects open/closed state.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.key}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Placement -->
+    <section>
+      <h2 class="section-title">Placement</h2>
+      <div class="token-table">
+        {[
+          { val: 'bottom-end (default)', desc: 'Panel aligns to the right edge of the trigger. Use for row action menus (⋯ button at end of a table row).' },
+          { val: 'bottom-start',         desc: 'Panel aligns to the left edge of the trigger. Use when the trigger is on the left side of the layout.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.val}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section>
+      <h2 class="section-title">Usage guidance</h2>
+      <div class="token-table">
+        {[
+          { rule: 'Do',    desc: 'Group related actions with dividers. Keep each group to 3–5 items.' },
+          { rule: 'Do',    desc: 'Put destructive actions last, separated by a divider.' },
+          { rule: 'Do',    desc: 'Use an icon-only ⋯ trigger for table row actions to avoid clutter.' },
+          { rule: "Don't", desc: 'Put more than 8–10 items in a single menu — consider a dedicated settings page.' },
+          { rule: "Don't", desc: 'Use a menu for navigation between pages — use a nav or link list instead.' },
+          { rule: "Don't", desc: 'Remove disabled items entirely; keep them visible so users understand what\'s available in different contexts.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class:list={['token-name', row.rule === "Don't" ? 'token-dont' : 'token-do']}>{row.rule}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'bg/base',           usage: 'Panel background' },
+          { token: 'border/subtle',     usage: 'Panel border and divider color' },
+          { token: 'border-width/base', usage: 'Panel border weight (1px)' },
+          { token: 'bg/faint',          usage: 'Item hover and focus background' },
+          { token: 'text/base',         usage: 'Standard item label' },
+          { token: 'text/subtle',       usage: 'Item icon color, section label, keyboard shortcut' },
+          { token: 'text/disabled',     usage: 'Disabled item text and icon' },
+          { token: 'status/error',      usage: 'Destructive item label and icon' },
+          { token: 'radius/lg',         usage: 'Panel corner radius (12px)' },
+          { token: 'radius/sm',         usage: 'Item hover border radius (4px)' },
+          { token: 'space/1',           usage: 'Panel padding and item gap from edges (4px)' },
+          { token: 'space/3',           usage: 'Item horizontal padding (12px)' },
+          { token: 'space/2',           usage: 'Gap between icon and label (8px)' },
+          { token: 'body/sm',           usage: 'Item font size' },
+          { token: 'font/mono',         usage: 'Keyboard shortcut typeface' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="information" badgeStyle="subtle" client:load>Figma: In progress</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+        <Badge color="information" badgeStyle="subtle" client:load>Sub-menus: v2</Badge>
+      </div>
+    </section>
+
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: visible;
+  }
+
+  .demo-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+  .demo-row.labeled { justify-content: flex-start; }
+
+  .row-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    width: 130px;
+    flex-shrink: 0;
+  }
+
+  /* Extra height so the open menu doesn't clip */
+  .demo-cell {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-do   { color: var(--status-success); }
+  .token-dont { color: var(--status-error); }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+</style>
