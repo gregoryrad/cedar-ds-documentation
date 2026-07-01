@@ -1,0 +1,211 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import { Breadcrumb } from '../../cedar/components/Breadcrumb/Breadcrumb';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Breadcrumb">
+  <PageHeader
+    eyebrow="Components"
+    title="Breadcrumb"
+    description="Hierarchical navigation trail showing the user's current location within a multi-level structure. The last item always represents the current page and is never a link."
+  />
+
+  <PageContent>
+
+    <!-- Examples -->
+    <section>
+      <h2 class="section-title">Examples</h2>
+      <div class="demo-block">
+        <div class="demo-row labeled">
+          <span class="row-label">2 levels</span>
+          <Breadcrumb
+            items={[
+              { label: 'Cedar DS', href: '/' },
+              { label: 'Components' },
+            ]}
+            client:load
+          />
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">3 levels</span>
+          <Breadcrumb
+            items={[
+              { label: 'Cedar DS', href: '/' },
+              { label: 'Components', href: '/components/button' },
+              { label: 'Button' },
+            ]}
+            client:load
+          />
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">Cedar Ops</span>
+          <Breadcrumb
+            items={[
+              { label: 'Cedar Ops', href: '#' },
+              { label: 'Components', href: '#' },
+              { label: 'Button' },
+            ]}
+            client:load
+          />
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">4 levels</span>
+          <Breadcrumb
+            items={[
+              { label: 'Design System', href: '#' },
+              { label: 'Cedar DS', href: '/' },
+              { label: 'Components', href: '/components/button' },
+              { label: 'Button' },
+            ]}
+            client:load
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Anatomy -->
+    <section>
+      <h2 class="section-title">Anatomy</h2>
+      <div class="token-table">
+        {[
+          { part: 'nav',          desc: 'Landmark element with aria-label="Breadcrumb". Screen readers announce this as navigation.' },
+          { part: 'ol',           desc: 'Ordered list — order matters semantically (root → current).' },
+          { part: 'Link items',   desc: 'Ancestor pages. Color: text/subtle, hover: text/base. Standard anchor tag with href.' },
+          { part: 'Current item', desc: 'Last item. Not a link. aria-current="page", color: text/base, font-weight: 500.' },
+          { part: 'Separator',    desc: 'SVG chevron ›, aria-hidden. Color: border/subtle. Never a text character — screen readers skip it.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.part}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section>
+      <h2 class="section-title">Usage guidance</h2>
+      <div class="token-table">
+        {[
+          { rule: 'Do',    desc: 'Include the root/home as the first item when the full path adds useful context.' },
+          { rule: 'Do',    desc: 'Match breadcrumb labels exactly to the page titles they link to.' },
+          { rule: 'Do',    desc: 'Place the breadcrumb above the page title, below the top navigation.' },
+          { rule: "Don't", desc: 'Make the current page a link — it\'s already the active page.' },
+          { rule: "Don't", desc: 'Use a breadcrumb on flat, single-level sites — it adds noise without benefit.' },
+          { rule: "Don't", desc: 'Truncate items in v1. If the path is too long, the page structure needs rethinking.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class:list={['token-name', row.rule === "Don't" ? 'token-dont' : 'token-do']}>{row.rule}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'text/subtle',      usage: 'Ancestor link color' },
+          { token: 'text/base',        usage: 'Ancestor link hover + current page label' },
+          { token: 'border/subtle',    usage: 'Separator chevron color' },
+          { token: 'font/base',        usage: 'Typeface (Inter)' },
+          { token: 'body/sm',          usage: 'Font size (16px)' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="information" badgeStyle="subtle" client:load>Figma: In progress</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+        <Badge color="information" badgeStyle="subtle" client:load>Overflow truncation: v2</Badge>
+      </div>
+    </section>
+
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .demo-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+
+  .demo-row.labeled { justify-content: flex-start; }
+
+  .row-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    width: 100px;
+    flex-shrink: 0;
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-do   { color: var(--status-success); }
+  .token-dont { color: var(--status-error); }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+</style>
