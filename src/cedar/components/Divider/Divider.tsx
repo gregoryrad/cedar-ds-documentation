@@ -11,7 +11,7 @@ export interface DividerProps {
 const COLOR: Record<DividerVariant, string> = {
   subtle: 'var(--border-subtle)',
   base:   'var(--border-base)',
-  strong: 'var(--border-strong)',
+  strong: 'var(--border-base)',
 };
 
 const WEIGHT: Record<DividerVariant, string> = {
