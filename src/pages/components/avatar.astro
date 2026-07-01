@@ -1,0 +1,304 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import {
+  AvatarInitials,
+  AvatarNoName,
+  AvatarSizes,
+  AvatarSquare,
+  AvatarWithStatus,
+  AvatarGroupDemo,
+  AvatarInContext,
+} from '../../cedar/components/Avatar/AvatarDemo';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Avatar">
+  <PageHeader
+    eyebrow="Components"
+    title="Avatar"
+    description="Represents a user with their photo, initials, or a fallback icon. Supports status indicators and the AvatarGroup stacking pattern."
+  />
+
+  <PageContent>
+
+    <!-- Initials -->
+    <section>
+      <h2 class="section-title">Initials</h2>
+      <p class="section-desc">When no <code>src</code> is provided, Avatar generates initials from the <code>name</code> prop (up to 2 characters). Each name maps deterministically to one of 8 background/foreground color pairs so the same user always gets the same color.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <AvatarInitials client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- No name fallback -->
+    <section>
+      <h2 class="section-title">Fallback icon</h2>
+      <p class="section-desc">When neither <code>src</code> nor <code>name</code> is available, a generic person icon is shown.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <AvatarNoName client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Sizes -->
+    <section>
+      <h2 class="section-title">Sizes</h2>
+      <div class="demo-block">
+        <div class="demo-row">
+          <AvatarSizes client:load />
+        </div>
+      </div>
+      <div class="token-table" style="margin-top: var(--space-4)">
+        {[
+          { size: 'xs', px: '24px', use: 'Inline mentions, dense comment threads.' },
+          { size: 'sm', px: '32px', use: 'List rows, table cells, compact headers.' },
+          { size: 'md', px: '40px', use: 'Default. Profile cards, comment threads.' },
+          { size: 'lg', px: '48px', use: 'Profile pages, prominent user callouts.' },
+          { size: 'xl', px: '64px', use: 'Account settings page, hero user display.' },
+        ].map(row => (
+          <div class="token-row size-row">
+            <code class="token-name">{row.size}</code>
+            <code class="token-name">{row.px}</code>
+            <span class="token-usage">{row.use}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Square -->
+    <section>
+      <h2 class="section-title">Square shape</h2>
+      <p class="section-desc">Set <code>shape="square"</code> for bots, apps, or integrations where a circular shape implies a human user.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <AvatarSquare client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Status -->
+    <section>
+      <h2 class="section-title">Status indicator</h2>
+      <p class="section-desc">Add a <code>status</code> prop to show a presence dot in the bottom-right corner. The dot has a white ring border so it remains legible on any background.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <AvatarWithStatus client:load />
+        </div>
+        <div class="demo-row status-legend">
+          {[
+            { status: 'online',  color: 'var(--status-success)', label: 'Online' },
+            { status: 'away',    color: 'var(--status-warning)', label: 'Away' },
+            { status: 'busy',    color: 'var(--status-error)',   label: 'Busy' },
+            { status: 'offline', color: 'var(--border-base)',    label: 'Offline' },
+          ].map(s => (
+            <span class="legend-item">
+              <span class="legend-dot" style={`background:${s.color}`} />
+              {s.label}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- AvatarGroup -->
+    <section>
+      <h2 class="section-title">AvatarGroup</h2>
+      <p class="section-desc">Stacks avatars with a 25% overlap and a white outline ring. When the list exceeds <code>max</code>, a <code>+N</code> overflow count appears at the end.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <AvatarGroupDemo client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- In context -->
+    <section>
+      <h2 class="section-title">In context — comment thread</h2>
+      <div class="demo-block full-block">
+        <AvatarInContext client:load />
+      </div>
+    </section>
+
+    <!-- Accessibility -->
+    <section>
+      <h2 class="section-title">Keyboard &amp; accessibility</h2>
+      <div class="token-table">
+        {[
+          { key: 'role="img"',    desc: 'Avatar is marked as an image landmark.' },
+          { key: 'aria-label',    desc: 'Set to the name prop (or "User avatar" as fallback). Screen readers announce this as the accessible name.' },
+          { key: 'Status dot',    desc: 'aria-label set to the status string ("online", "away", etc.) so screen readers can discover presence state.' },
+          { key: 'img alt text',  desc: 'When src is provided, the <img> gets alt={name} (or "Avatar" fallback).' },
+          { key: 'AvatarGroup +N', desc: 'Overflow count has aria-label="{N} more" to announce the hidden count.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.key}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section>
+      <h2 class="section-title">Usage guidance</h2>
+      <div class="token-table">
+        {[
+          { rule: 'Do',    desc: 'Always pass name when it\'s available — initials are more informative than the fallback icon.' },
+          { rule: 'Do',    desc: 'Use square shape for non-human entities (bots, apps, integrations).' },
+          { rule: 'Do',    desc: 'Use AvatarGroup for collaborator lists — max 4–5 visible before overflow.' },
+          { rule: "Don't", desc: 'Use avatars as navigation targets. Wrap in a link or button instead.' },
+          { rule: "Don't", desc: 'Show status indicators when presence data isn\'t real-time — stale status is misleading.' },
+          { rule: "Don't", desc: 'Use xl size in dense lists — it overwhelms row content. Reserve for profile pages.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class:list={['token-name', row.rule === "Don't" ? 'token-dont' : 'token-do']}>{row.rule}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'bg/muted',         usage: 'Fallback background (no name, no src)' },
+          { token: 'bg/base',          usage: 'AvatarGroup outline ring and status dot border' },
+          { token: 'text/subtle',      usage: 'Fallback icon color' },
+          { token: 'border-width/base', usage: 'Subtle border on initials avatars (transparent by default)' },
+          { token: 'status/success',   usage: 'Online status dot' },
+          { token: 'status/warning',   usage: 'Away status dot' },
+          { token: 'status/error',     usage: 'Busy status dot' },
+          { token: 'border/base',      usage: 'Offline status dot' },
+          { token: 'radius/sm–xl',     usage: 'Square shape radius scales with size' },
+          { token: 'font/base',        usage: 'Initials and overflow count typeface' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="information" badgeStyle="subtle" client:load>Figma: In progress</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+      </div>
+    </section>
+
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .section-desc code {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    background: var(--bg-muted);
+    padding: 1px 5px;
+    border-radius: var(--radius-sm);
+    color: var(--text-base);
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .full-block { }
+
+  .demo-row {
+    padding: var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+
+  .status-legend {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    font-family: var(--font-base);
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .size-row { grid-template-columns: 0.5fr 0.75fr 3fr; }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-do   { color: var(--status-success); }
+  .token-dont { color: var(--status-error); }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+</style>
