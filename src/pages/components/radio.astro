@@ -1,0 +1,254 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import {
+  RadioStates,
+  RadioGroupBasic,
+  RadioGroupWithDesc,
+  RadioGroupError,
+  RadioGroupHorizontal,
+} from '../../cedar/components/Radio/RadioDemo';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Radio">
+  <PageHeader
+    eyebrow="Components"
+    title="Radio"
+    description="Single-select control for choosing one option from a small, visible set. Mirrors the Checkbox pattern: bare control, labeled variant, description variant, and RadioGroup composer."
+  />
+
+  <PageContent>
+
+    <!-- States -->
+    <section>
+      <h2 class="section-title">States</h2>
+      <p class="section-desc">Uses a native hidden <code>input[type="radio"]</code> with a custom circle visual. The filled dot appears on the checked state; border and fill shift for error and disabled.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <RadioStates client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- RadioGroup -->
+    <section>
+      <h2 class="section-title">RadioGroup</h2>
+      <p class="section-desc">The primary usage pattern. <code>RadioGroup</code> renders a <code>fieldset</code> with a <code>legend</code> and manages mutual exclusivity via the shared <code>name</code> attribute.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <RadioGroupBasic client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- With descriptions -->
+    <section>
+      <h2 class="section-title">With descriptions</h2>
+      <p class="section-desc">Pass a <code>description</code> per option to get the full-width layout — label bold above, description subdued below. Use when options need more than a one-word label.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <RadioGroupWithDesc client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Horizontal layout -->
+    <section>
+      <h2 class="section-title">Horizontal layout</h2>
+      <p class="section-desc">Set <code>layout="horizontal"</code> for short option labels that fit inline. Wraps on narrow viewports.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <RadioGroupHorizontal client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Error state -->
+    <section>
+      <h2 class="section-title">Error state</h2>
+      <p class="section-desc">Pass an <code>error</code> string to RadioGroup. All radios in the group shift to the error border; the error message appears below.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <RadioGroupError client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Sizes -->
+    <section>
+      <h2 class="section-title">Sizes</h2>
+      <div class="token-table">
+        {[
+          { size: 'sm', px: '16px', desc: 'Dense lists, compact forms.' },
+          { size: 'md', px: '18px', desc: 'Default. Most form contexts.' },
+          { size: 'lg', px: '20px', desc: 'Touch-friendly, larger settings panels.' },
+        ].map(row => (
+          <div class="token-row size-row">
+            <code class="token-name">{row.size}</code>
+            <code class="token-name">{row.px}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Keyboard -->
+    <section>
+      <h2 class="section-title">Keyboard &amp; accessibility</h2>
+      <div class="token-table">
+        {[
+          { key: 'Tab',             desc: 'Move focus into/out of the radio group.' },
+          { key: '↑ / ↓ or ← / →', desc: 'Move between options within the group and select the focused one.' },
+          { key: 'fieldset + legend', desc: 'Groups radios semantically. Screen readers announce the group label before each option.' },
+          { key: 'name attribute',  desc: 'Shared across all radios in a group — the browser enforces single-selection natively.' },
+          { key: 'aria-invalid',    desc: 'Set on the fieldset when error prop is provided.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.key}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section>
+      <h2 class="section-title">Usage guidance</h2>
+      <div class="token-table">
+        {[
+          { rule: 'Do',    desc: 'Use Radio for 2–5 mutually exclusive options. Show all options visibly — don\'t hide them in a Select.' },
+          { rule: 'Do',    desc: 'Always use RadioGroup (not bare Radio) to ensure a single selection and correct ARIA grouping.' },
+          { rule: 'Do',    desc: 'Pre-select a sensible default when one option is clearly the most common choice.' },
+          { rule: "Don't", desc: 'Use Radio for yes/no — a single Checkbox or Toggle is clearer.' },
+          { rule: "Don't", desc: 'Use Radio for 6+ options — use a Select dropdown instead.' },
+          { rule: "Don't", desc: 'Mix Radio and Checkbox in the same form group — they signal different interaction models.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class:list={['token-name', row.rule === "Don't" ? 'token-dont' : 'token-do']}>{row.rule}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'action/primary',     usage: 'Checked border and background' },
+          { token: 'action/on-primary',  usage: 'Inner dot color' },
+          { token: 'border/base',        usage: 'Unchecked border' },
+          { token: 'border/disabled',    usage: 'Disabled border' },
+          { token: 'bg/base',            usage: 'Unchecked background' },
+          { token: 'bg/disabled',        usage: 'Disabled background' },
+          { token: 'status/error',       usage: 'Error state border' },
+          { token: 'border-width/bold',  usage: 'Circle border weight (2px)' },
+          { token: 'radius/full',        usage: 'Circle and dot shape' },
+          { token: 'text/base',          usage: 'Label text' },
+          { token: 'text/subtle',        usage: 'Description text' },
+          { token: 'text/disabled',      usage: 'Disabled label and description' },
+          { token: 'space/2',            usage: 'Gap between control and label' },
+          { token: 'space/3',            usage: 'Gap between options (vertical)' },
+          { token: 'space/5',            usage: 'Gap between options (horizontal)' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="information" badgeStyle="subtle" client:load>Figma: In progress</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+      </div>
+    </section>
+
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .section-desc code {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    background: var(--bg-muted);
+    padding: 1px 5px;
+    border-radius: var(--radius-sm);
+    color: var(--text-base);
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .demo-row {
+    padding: var(--space-5) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .size-row { grid-template-columns: 0.5fr 0.75fr 3fr; }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-do   { color: var(--status-success); }
+  .token-dont { color: var(--status-error); }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+</style>
