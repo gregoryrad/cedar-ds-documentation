@@ -1,0 +1,268 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import {
+  BasicSelect,
+  SelectWithValue,
+  SelectFieldDefault,
+  SelectFieldError,
+  SelectFieldDisabled,
+  SelectSmall,
+} from '../../cedar/components/Select/SelectDemo';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Select">
+  <PageHeader
+    eyebrow="Components"
+    title="Select"
+    description="Custom dropdown for choosing one option from a list. Three layers: the bare Select control, and SelectField wrapping it with a label, helper text, and error state."
+  />
+
+  <PageContent>
+
+    <!-- Select control -->
+    <section>
+      <h2 class="section-title">Select control</h2>
+      <p class="section-desc">The bare control — use when you need a select without the label wrapper. Displays a placeholder until a value is chosen; shows a check mark next to the selected option in the dropdown.</p>
+      <div class="demo-block">
+        <div class="demo-row labeled">
+          <span class="row-label">Empty</span>
+          <div class="field-wrap"><BasicSelect client:load /></div>
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">With value</span>
+          <div class="field-wrap"><SelectWithValue client:load /></div>
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">sm size</span>
+          <div class="field-wrap"><SelectSmall client:load /></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SelectField -->
+    <section>
+      <h2 class="section-title">SelectField</h2>
+      <p class="section-desc">Composes the Select control with a label, optional helper text, and error state. Use <code>SelectField</code> in forms; use <code>Select</code> for standalone controls in toolbars or filter bars.</p>
+      <div class="demo-block field-demo-block">
+        <div class="demo-row labeled">
+          <span class="row-label">Default</span>
+          <div class="field-wrap"><SelectFieldDefault client:load /></div>
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">Error</span>
+          <div class="field-wrap"><SelectFieldError client:load /></div>
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">Disabled</span>
+          <div class="field-wrap"><SelectFieldDisabled client:load /></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- States -->
+    <section>
+      <h2 class="section-title">States</h2>
+      <div class="token-table">
+        {[
+          { state: 'Default',     desc: 'Resting state. border/subtle border, placeholder in text/subtle.' },
+          { state: 'Focused',     desc: 'action/primary 2px border. Indicates keyboard or mouse focus on the trigger.' },
+          { state: 'Open',        desc: 'Same as focused. Chevron rotates 180°. Dropdown panel appears.' },
+          { state: 'Selected',    desc: 'Chosen value shown in text/base. Check mark on the active option in the dropdown.' },
+          { state: 'Error',       desc: 'status/error 2px border. Error message shown below in status/error.' },
+          { state: 'Disabled',    desc: 'bg/disabled background, text/disabled text. Not interactive.' },
+          { state: 'Option hover', desc: 'bg/faint highlight on the hovered or arrow-key-focused option row.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.state}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Keyboard -->
+    <section>
+      <h2 class="section-title">Keyboard &amp; accessibility</h2>
+      <div class="token-table">
+        {[
+          { key: 'Space / Enter / ↓ / ↑', desc: 'Open the dropdown from the trigger.' },
+          { key: '↑ / ↓',                 desc: 'Move focus between enabled options in the open dropdown.' },
+          { key: 'Home / End',             desc: 'Jump to the first / last enabled option.' },
+          { key: 'Enter / Space',          desc: 'Select the currently focused option and close.' },
+          { key: 'Escape',                 desc: 'Close the dropdown without changing the selection.' },
+          { key: 'Tab',                    desc: 'Close the dropdown and move focus to the next element.' },
+          { key: 'Click outside',          desc: 'Close without changing selection.' },
+          { key: 'role="combobox"',        desc: 'On the trigger. aria-haspopup="listbox", aria-expanded reflects open state.' },
+          { key: 'role="listbox"',         desc: 'On the dropdown panel. aria-activedescendant tracks the focused option.' },
+          { key: 'role="option"',          desc: 'On each item. aria-selected on the active value, aria-disabled on disabled items.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.key}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section>
+      <h2 class="section-title">Usage guidance</h2>
+      <div class="token-table">
+        {[
+          { rule: 'Do',    desc: 'Use Select for 4+ options. For 2–3 options, prefer Radio buttons — they show all choices at a glance.' },
+          { rule: 'Do',    desc: 'Always include a meaningful placeholder ("Select a role", not "Select").' },
+          { rule: 'Do',    desc: 'Keep option labels short — one to four words. Avoid descriptions in the option label.' },
+          { rule: "Don't", desc: 'Use Select for yes/no choices — use a Toggle or a single Checkbox instead.' },
+          { rule: "Don't", desc: 'Put more than 15–20 options in a Select without adding search/filter (use a Combobox pattern instead).' },
+          { rule: "Don't", desc: 'Use disabled options to convey a warning — prefer removing the option and explaining why via helper text.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class:list={['token-name', row.rule === "Don't" ? 'token-dont' : 'token-do']}>{row.rule}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'bg/base',            usage: 'Trigger and dropdown background' },
+          { token: 'bg/disabled',        usage: 'Trigger background when disabled' },
+          { token: 'bg/faint',           usage: 'Option hover/focus highlight' },
+          { token: 'border/subtle',      usage: 'Default trigger border and dropdown panel border' },
+          { token: 'border-width/base',  usage: 'Default border weight (1px)' },
+          { token: 'border-width/bold',  usage: 'Focused/open border weight (2px)' },
+          { token: 'action/primary',     usage: 'Focused/open trigger border + selected option check mark' },
+          { token: 'status/error',       usage: 'Error state border and error message text' },
+          { token: 'text/base',          usage: 'Selected value, option labels' },
+          { token: 'text/subtle',        usage: 'Placeholder text, chevron icon' },
+          { token: 'text/disabled',      usage: 'Disabled trigger text, disabled options' },
+          { token: 'radius/md',          usage: 'Trigger corner radius (8px)' },
+          { token: 'radius/lg',          usage: 'Dropdown panel corner radius (12px)' },
+          { token: 'radius/sm',          usage: 'Option row hover radius (4px)' },
+          { token: 'space/3',            usage: 'Option horizontal padding (12px)' },
+          { token: 'space/1',            usage: 'Panel padding and gap to trigger (4px)' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="information" badgeStyle="subtle" client:load>Figma: In progress</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+        <Badge color="information" badgeStyle="subtle" client:load>Multi-select + search: v2</Badge>
+      </div>
+    </section>
+
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .section-desc code {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    background: var(--bg-muted);
+    padding: 1px 5px;
+    border-radius: var(--radius-sm);
+    color: var(--text-base);
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: visible;
+  }
+
+  /* Extra bottom padding so open dropdowns don't clip */
+  .field-demo-block { padding-bottom: var(--space-10); }
+
+  .demo-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+  .demo-row.labeled { justify-content: flex-start; }
+
+  .row-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    width: 100px;
+    flex-shrink: 0;
+    padding-top: 10px;
+  }
+
+  .field-wrap {
+    width: 280px;
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-do   { color: var(--status-success); }
+  .token-dont { color: var(--status-error); }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+</style>
