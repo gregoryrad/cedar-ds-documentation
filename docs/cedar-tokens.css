@@ -1,0 +1,275 @@
+/* Cedar Design System — design tokens
+   Source: Cedar DS Foundations (Figma file QNwCaVwuBNF3CpeWUMnWyb)
+   Semantic tokens reference primitives via var(). Do not edit by hand — regenerate from Figma. */
+
+:root {
+
+  /* Color — primitives */
+  --brand-primary-100: #ddf5f8;
+  --brand-primary-150: #c2eef4;
+  --brand-primary-200: #9ae5ef;
+  --brand-primary-300: #45d9ed;
+  --brand-primary-400: #04bfdc;
+  --brand-primary-500: #0097a7;
+  --brand-primary-600: #008394;
+  --brand-primary-700: #006a7a;
+  --brand-primary-800: #005261;
+  --brand-primary-900: #003742;
+  --brand-primary-950: #002129;
+  --brand-secondary-100: #ddeef8;
+  --brand-secondary-150: #c3e2f4;
+  --brand-secondary-200: #9ad0ef;
+  --brand-secondary-300: #51b3ec;
+  --brand-secondary-400: #149ceb;
+  --brand-secondary-500: #0f7dbd;
+  --brand-secondary-600: #0a69a3;
+  --brand-secondary-700: #075183;
+  --brand-secondary-800: #043e67;
+  --brand-secondary-900: #022845;
+  --brand-secondary-950: #01192d;
+  --brand-accent-100: #eef7e3;
+  --brand-accent-150: #dff0cc;
+  --brand-accent-200: #c9e5a9;
+  --brand-accent-300: #aad47d;
+  --brand-accent-400: #96c95e;
+  --brand-accent-500: #8bc34a;
+  --brand-accent-600: #71ae37;
+  --brand-accent-700: #578e29;
+  --brand-accent-800: #3e6d1d;
+  --brand-accent-900: #274912;
+  --brand-accent-950: #172d0b;
+  --brand-orange-100: #fef4ec;
+  --brand-orange-150: #fbd8b8;
+  --brand-orange-200: #f8bc84;
+  --brand-orange-300: #f5a050;
+  --brand-orange-400: #f2841c;
+  --brand-orange-500: #da700d;
+  --brand-orange-600: #b65d0b;
+  --brand-orange-700: #914a08;
+  --brand-orange-800: #6c3706;
+  --brand-orange-900: #472404;
+  --brand-orange-950: #221102;
+  --success-100: #e1f4e6;
+  --success-150: #cbebd4;
+  --success-200: #abdeb9;
+  --success-300: #7ccb93;
+  --success-400: #4fba73;
+  --success-500: #3a9c5e;
+  --success-600: #2d864f;
+  --success-700: #1f6b3f;
+  --success-800: #145230;
+  --success-900: #0d3b23;
+  --success-950: #072717;
+  --warning-100: #f0d9cb;
+  --warning-150: #f2ceba;
+  --warning-200: #f4c5aa;
+  --warning-300: #f7b189;
+  --warning-400: #fb9d68;
+  --warning-500: #ff8a47;
+  --warning-600: #cc6e39;
+  --warning-700: #99532b;
+  --warning-800: #66371c;
+  --warning-900: #331c0e;
+  --warning-950: #1a0e07;
+  --error-100: #eacfcf;
+  --error-150: #e8c0c0;
+  --error-200: #e7b2b2;
+  --error-300: #e49595;
+  --error-400: #e17878;
+  --error-500: #df5b5b;
+  --error-600: #b24949;
+  --error-700: #863737;
+  --error-800: #592424;
+  --error-900: #2d1212;
+  --error-950: #160909;
+  --information-100: #cbd9f0;
+  --information-150: #bacef2;
+  --information-200: #aac5f4;
+  --information-300: #89b1f7;
+  --information-400: #689dfb;
+  --information-500: #478aff;
+  --information-600: #396ecc;
+  --information-700: #2b5399;
+  --information-800: #1c3766;
+  --information-900: #0e1c33;
+  --information-950: #070e1a;
+  --neutral-50: #f7f7f7;
+  --neutral-100: #e2e2e2;
+  --neutral-150: #dcdcdc;
+  --neutral-200: #d8d8d8;
+  --neutral-300: #cccccc;
+  --neutral-400: #c2c2c2;
+  --neutral-500: #b8b8b8;
+  --neutral-600: #939393;
+  --neutral-700: #6e6e6e;
+  --neutral-800: #4a4a4a;
+  --neutral-900: #252525;
+  --neutral-950: #121212;
+  --foundations-white: #ffffff;
+  --foundations-black: #000000;
+
+  /* Color — semantic (reference primitives) */
+  --bg-base: var(--foundations-white);
+  --bg-faint: var(--neutral-50);
+  --bg-subtle: var(--neutral-300);
+  --bg-muted: var(--neutral-150);
+  --bg-raised: var(--neutral-150);
+  --bg-disabled: var(--neutral-100);
+  --text-base: var(--neutral-900);
+  --text-subtle: var(--neutral-600);
+  --text-disabled: var(--neutral-400);
+  --text-inverse: var(--foundations-white);
+  --text-on-brand: var(--foundations-white);
+  --border-base: var(--neutral-900);
+  --border-subtle: var(--neutral-300);
+  --border-brand: var(--brand-primary-500);
+  --border-disabled: var(--neutral-150);
+  --action-primary: var(--brand-primary-500);
+  --action-primary-hover: var(--brand-primary-600);
+  --action-primary-pressed: var(--brand-primary-700);
+  --action-primary-disabled: var(--neutral-100);
+  --action-on-primary: var(--foundations-white);
+  --action-secondary: var(--brand-secondary-500);
+  --action-secondary-hover: var(--brand-secondary-600);
+  --action-secondary-pressed: var(--brand-secondary-700);
+  --action-accent: var(--brand-accent-500);
+  --action-accent-hover: var(--brand-accent-600);
+  --action-accent-pressed: var(--brand-accent-700);
+  --action-destructive: var(--error-600);
+  --action-destructive-hover: var(--error-700);
+  --action-destructive-pressed: var(--error-800);
+  --action-neutral: var(--neutral-600);
+  --action-neutral-hover: var(--neutral-700);
+  --action-neutral-pressed: var(--neutral-800);
+  --status-error: var(--error-500);
+  --status-error-bg: var(--error-100);
+  --status-on-error: var(--foundations-white);
+  --status-warning: var(--brand-orange-600);
+  --status-warning-bg: var(--brand-orange-100);
+  --status-on-warning: var(--brand-orange-100);
+  --status-success: var(--success-700);
+  --status-success-bg: var(--success-100);
+  --status-on-success: var(--foundations-white);
+  --status-information: var(--information-500);
+  --status-information-bg: var(--information-100);
+  --status-on-information: var(--foundations-white);
+
+  /* Spacing scale */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --scale-0: 0px;
+  --scale-25: 1px;
+  --scale-50: 2px;
+  --scale-100: 4px;
+  --scale-200: 8px;
+  --scale-300: 12px;
+  --scale-400: 16px;
+  --scale-500: 20px;
+  --scale-600: 24px;
+  --scale-700: 28px;
+  --scale-800: 32px;
+  --scale-900: 36px;
+  --scale-1000: 40px;
+  --scale-1100: 48px;
+  --scale-1200: 56px;
+  --scale-1300: 64px;
+  --scale-1400: 72px;
+  --scale-1500: 96px;
+  --scale-1600: 128px;
+  --scale-1700: 256px;
+  --scale-1800: 999px;
+
+  /* Radius */
+  --radius-none: var(--scale-0);
+  --radius-sm: var(--scale-100);
+  --radius-md: var(--scale-200);
+  --radius-lg: var(--scale-300);
+  --radius-xl: var(--scale-400);
+  --radius-full: var(--scale-1800);
+
+  /* Border weights — named --border-width-* to avoid colliding with the --border-* color tokens above.
+     (Figma has two variables both named border/base: a color in Color/Semantic and a weight in Border/Weights.) */
+  --border-width-base: 1px;
+  --border-width-bold: 2px;
+  --border-width-x-bold: 3px;
+
+  /* Font families */
+  --font-base: Inter;
+  --font-mono: Fira Code;
+
+  /* Type roles */
+  --body-sm: 16px;
+  --body-md: 18px;
+  --body-lg: 20px;
+  --heading-sm: 18px;
+  --heading-md: 20px;
+  --heading-lg: 24px;
+  --title-sm: 20px;
+  --title-md: 24px;
+  --title-lg: 32px;
+
+  /* Type sizes (Desktop; Mobile in media query) */
+  --size-xs: 14px;
+  --size-sm: 18px;
+  --size-md: 20px;
+  --size-lg: 24px;
+  --size-xl: 32px;
+  --size-2xl: 40px;
+  --size-3xl: 56px;
+  --size-4xl: 72px;
+
+  /* Line heights (Desktop; Mobile in media query) */
+  --line-height-xs: 16px;
+  --line-height-sm: 28px;
+  --line-height-md: 36px;
+  --line-height-lg: 48px;
+  --line-height-xl: 64px;
+  --line-height-2xl: 72px;
+
+  /* Grid / layout (Desktop; Tablet & Mobile in media queries) */
+  --grid-columns-count: 12;
+  --grid-gutter: 32px;
+  --grid-margin: 80px;
+  --grid-max-width: 1280px;
+}
+
+/* Tablet — grid overrides. Breakpoints match the doc-site convention (mobile <=767, tablet 768-1279). */
+@media (max-width: 1279px) {
+  :root {
+    --grid-columns-count: 8;
+    --grid-gutter: 24px;
+    --grid-margin: 32px;
+    --grid-max-width: 768px;
+  }
+}
+
+/* Mobile — responsive type + grid. */
+@media (max-width: 767px) {
+  :root {
+    --size-xs: 12px;
+    --size-sm: 16px;
+    --size-md: 18px;
+    --size-lg: 20px;
+    --size-xl: 24px;
+    --size-2xl: 32px;
+    --size-3xl: 40px;
+    --size-4xl: 48px;
+    --line-height-xs: 16px;
+    --line-height-sm: 24px;
+    --line-height-md: 32px;
+    --line-height-lg: 40px;
+    --line-height-xl: 48px;
+    --line-height-2xl: 56px;
+    --grid-columns-count: 4;
+    --grid-gutter: 16px;
+    --grid-margin: 16px;
+    --grid-max-width: 375px;
+  }
+}

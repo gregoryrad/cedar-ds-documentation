@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import PageContent from '../../components/PageContent.astro';
 import { Spinner } from '../../cedar/components/Spinner/Spinner';
+import { ProgressBar } from '../../cedar/components/ProgressBar/ProgressBar';
 ---
 
 <BaseLayout title="Status">
@@ -58,20 +59,40 @@ import { Spinner } from '../../cedar/components/Spinner/Spinner';
     </section>
 
     <section>
-      <h2 class="section-title">Progress Bar <span class="coming-badge">Coming soon</span></h2>
-      <p class="section-desc">
-        The Progress Bar component (3 size variants: Small, Medium, Large) is fully defined in Figma.
-        React implementation is the next item in the Status component queue.
-      </p>
+      <h2 class="section-title">Progress Bar — sizes</h2>
+      <p class="section-desc">Determinate progress bar. Three sizes with pill-end corners. Track is bg/muted; fill is action/primary (teal).</p>
+      <div class="demo-block progress-demo">
+        <div class="progress-row">
+          <code class="label">sm · 4px</code>
+          <div class="progress-wrap">
+            <ProgressBar value={60} size="sm" client:load />
+          </div>
+          <code class="label">60%</code>
+        </div>
+        <div class="progress-row">
+          <code class="label">md · 8px</code>
+          <div class="progress-wrap">
+            <ProgressBar value={40} size="md" client:load />
+          </div>
+          <code class="label">40%</code>
+        </div>
+        <div class="progress-row">
+          <code class="label">lg · 12px</code>
+          <div class="progress-wrap">
+            <ProgressBar value={75} size="lg" client:load />
+          </div>
+          <code class="label">75%</code>
+        </div>
+      </div>
     </section>
 
     <section>
       <h2 class="section-title">Tokens used</h2>
       <div class="token-table">
         {[
-          { token: 'action/primary', usage: 'Default spinner track color' },
-          { token: 'border/subtle', usage: 'Spinner background ring' },
-          { token: 'scale/100 through scale/800', usage: 'Spinner size in px (16, 24, 32)' },
+          { token: 'action/primary', usage: 'Spinner arc + progress bar fill' },
+          { token: 'bg/muted',       usage: 'Progress bar track background' },
+          { token: 'border/subtle',  usage: 'Spinner background ring' },
         ].map(row => (
           <div class="token-row">
             <code class="token-name">{row.token}</code>
@@ -129,6 +150,23 @@ import { Spinner } from '../../cedar/components/Spinner/Spinner';
     flex-direction: column;
     align-items: center;
     gap: var(--space-3);
+  }
+
+  .progress-demo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 480px;
+  }
+
+  .progress-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .progress-wrap {
+    flex: 1;
   }
 
   .label {

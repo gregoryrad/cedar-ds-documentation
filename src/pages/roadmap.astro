@@ -5,9 +5,11 @@ import PageContent from '../components/PageContent.astro';
 import { Badge } from '../cedar/components/Badge/Badge';
 
 const v1 = [
-  { item: 'Token pages: Color, Spacing, Radius, Typography, Border' },
-  { item: 'Component pages: Button, Input, Checkbox, Badge, Card, Alert, Status, Tabs' },
-  { item: 'Live React demos for all v1 components' },
+  { item: 'Token pages: Color, Spacing (+ Grid/Layout responsive collection), Radius, Typography, Border' },
+  { item: 'Color palette synced to Foundations: primary→teal, secondary (was amber)→blue, accent (was sienna)→green, success→muted green' },
+  { item: 'WCAG AA contrast fix — status/success now uses success/700 on success/100 bg (5.66:1)' },
+  { item: 'Component pages: Button, Input, Checkbox, Badge, Card, Alert, Status (Spinner + Progress Bar), Tabs' },
+  { item: 'Live React demos for all v1 components with full keyboard accessibility' },
   { item: 'Built with Cedar — DayLog real-world usage' },
   { item: 'Roadmap page (this page)' },
   { item: 'Deployed to Vercel' },
@@ -16,17 +18,21 @@ const v1 = [
 const v2Components = [
   'Toggle', 'Radio', 'Select', 'Chip', 'Icon Button',
   'Avatar', 'Divider', 'Modal', 'Tooltip', 'Toast',
-  'Breadcrumb', 'Pagination', 'Menu', 'Data Grid',
+  'Breadcrumb', 'Pagination', 'Menu',
+];
+
+const v3Components = [
+  'Data Grid',
 ];
 
 const v2Features = [
   { item: 'Dark mode', detail: 'Figma semantic layer already has one mode — adding a second is the design work. CSS variables make the implementation straightforward.' },
-  { item: 'Storybook integration', detail: 'Auto-generated stories from Cedar component props. Useful for engineering consumers of the system.' },
   { item: 'Interactive prop editor', detail: 'Live knobs panel on component pages — change size, color, state without editing code.' },
   { item: 'Typography specimen page', detail: 'Full typeface showcase with Inter weight samples and Fira Code ligature examples.' },
   { item: 'Token export (CSS, JSON)', detail: 'Download Cedar tokens as CSS custom properties or W3C design token JSON.' },
   { item: 'Search', detail: 'Full-text search across token names, component names, and descriptions.' },
   { item: 'Figma embed', detail: 'Live Figma frame embeds on component pages for design—dev comparison.' },
+  { item: 'Storybook integration', detail: 'Auto-generated stories from Cedar component props. Best added once all v2 React components exist.' },
 ];
 ---
 
@@ -59,13 +65,29 @@ const v2Features = [
         <Badge color="information" badgeStyle="subtle" client:load>Planned</Badge>
       </div>
       <p class="version-desc">
-        All 23 Cedar components are fully built in Figma. The remaining 15 need React
-        implementations and doc pages. Priority order will be driven by DayLog
-        usage patterns.
+        All Cedar components are fully built in Figma. These 13 need React implementations
+        and doc pages. Priority order driven by DayLog usage patterns.
       </p>
       <div class="chip-grid">
         {v2Components.map(name => (
           <span class="component-chip">{name}</span>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="version-header">
+        <h2 class="version-title">v3 — Components</h2>
+        <Badge color="default" badgeStyle="subtle" client:load>Future</Badge>
+      </div>
+      <p class="version-desc">
+        Architecturally distinct from a standard component page — Data Grid is a product feature
+        with two Figma architectures (row-oriented and column-oriented), instance-swap cell content,
+        toolbar, footer, and pagination integration. Scoped separately to reflect the build investment.
+      </p>
+      <div class="chip-grid">
+        {v3Components.map(name => (
+          <span class="component-chip chip-v3">{name}</span>
         ))}
       </div>
     </section>
@@ -150,6 +172,12 @@ const v2Features = [
     background: var(--bg-muted);
     color: var(--text-subtle);
     border: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .chip-v3 {
+    background: var(--bg-faint);
+    color: var(--text-subtle);
+    border-style: dashed;
   }
 
   .feature-list {

@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import PageContent from '../../components/PageContent.astro';
+import { TabsDemo } from '../../cedar/components/Tabs/TabsDemo';
 import { Badge } from '../../cedar/components/Badge/Badge';
 ---
 
@@ -9,49 +10,62 @@ import { Badge } from '../../cedar/components/Badge/Badge';
   <PageHeader
     eyebrow="Components"
     title="Tabs"
-    description="Tab navigation for switching between content panels. Two states: Active and Inactive. React implementation in progress."
+    description="Tab navigation for switching between content panels. Two states: Active and Inactive. Full keyboard navigation — arrow keys, Home, End."
   />
 
   <PageContent>
+    <!-- Live demo -->
     <section>
-      <div class="status-block">
-        <div class="status-row">
-          <Badge color="success" badgeStyle="subtle" client:load>Figma: Done — Tab Item × 2 + Tab Bar</Badge>
-          <Badge color="warning" badgeStyle="subtle" client:load>React: In progress</Badge>
-        </div>
-        <p class="status-desc">
-          The Tabs component follows a familiar Active/Inactive state model. The Tab Bar
-          is a composited standalone component assembling multiple Tab Items into a full
-          navigation strip.
-        </p>
+      <h2 class="section-title">Live demo</h2>
+      <p class="section-desc">Click or use arrow keys to switch tabs. Active tab shows a 2px teal indicator; inactive tabs use subdued text.</p>
+      <div class="demo-wrap">
+        <TabsDemo client:load />
       </div>
     </section>
 
+    <!-- States -->
     <section>
-      <h2 class="section-title">Structure</h2>
-      <div class="structure-table">
+      <h2 class="section-title">States</h2>
+      <div class="token-table">
         {[
-          { component: 'Tab Item / State=Active',   desc: 'Currently selected tab. Bold label, underline accent in action/primary.' },
-          { component: 'Tab Item / State=Inactive', desc: 'Unselected tab. Subdued text/subtle label, no underline.' },
-          { component: 'Tab Bar',                   desc: 'Assembled strip of Tab Items with a bottom divider.' },
+          { state: 'Active',   desc: 'Semi-bold label in action/primary (teal). 2px bottom indicator in the same token.' },
+          { state: 'Inactive', desc: 'Regular-weight label in text/subtle. No indicator.' },
         ].map(row => (
-          <div class="structure-row">
-            <code class="comp-name">{row.component}</code>
-            <p class="comp-desc">{row.desc}</p>
+          <div class="token-row">
+            <code class="token-name">{row.state}</code>
+            <span class="token-usage">{row.desc}</span>
           </div>
         ))}
       </div>
     </section>
 
+    <!-- Keyboard -->
     <section>
-      <h2 class="section-title">Planned tokens</h2>
+      <h2 class="section-title">Keyboard navigation</h2>
       <div class="token-table">
         {[
-          { token: 'action/primary', usage: 'Active tab underline' },
-          { token: 'text/base', usage: 'Active tab label' },
-          { token: 'text/subtle', usage: 'Inactive tab label' },
-          { token: 'border/subtle', usage: 'Tab bar bottom border' },
-          { token: 'border-width/bold', usage: 'Active underline thickness (2px)' },
+          { key: '← / →',    desc: 'Move focus between tabs; activates focused tab.' },
+          { key: 'Home',     desc: 'Move focus to first tab.' },
+          { key: 'End',      desc: 'Move focus to last tab.' },
+          { key: 'Tab',      desc: 'Move focus out of the tab list into the panel.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.key}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'action/primary',   usage: 'Active tab label color + indicator bar' },
+          { token: 'text/subtle',      usage: 'Inactive tab label color' },
+          { token: 'border/subtle',    usage: 'Tab bar bottom border' },
+          { token: 'font/base',        usage: 'Label typeface (Inter)' },
         ].map(row => (
           <div class="token-row">
             <code class="token-name">{row.token}</code>
@@ -60,70 +74,52 @@ import { Badge } from '../../cedar/components/Badge/Badge';
         ))}
       </div>
     </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="success" badgeStyle="subtle" client:load>Figma: Done — Tab Item × 2 + Tab Bar</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+        <Badge color="information" badgeStyle="subtle" client:load>Controlled mode: v2</Badge>
+      </div>
+    </section>
   </PageContent>
 </BaseLayout>
 
 <style>
-  .status-block {
-    background: var(--bg-base);
-    border: var(--border-width-base) solid var(--border-subtle);
-    border-radius: var(--radius-xl);
-    padding: var(--space-5);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .status-row {
-    display: flex;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-  }
-
-  .status-desc {
-    font-size: var(--body-sm);
-    color: var(--text-subtle);
-    line-height: 1.6;
-    max-width: 560px;
-  }
-
   .section-title {
     font-size: var(--heading-lg);
     font-weight: 700;
     color: var(--text-base);
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-2);
   }
 
-  .structure-table, .token-table {
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .demo-wrap {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+  }
+
+  .panel-content p {
+    font-family: var(--font-base);
+    font-size: var(--body-md);
+    color: var(--text-subtle);
+    margin: 0;
+  }
+
+  .token-table {
     border: var(--border-width-base) solid var(--border-subtle);
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: var(--bg-base);
-  }
-
-  .structure-row {
-    display: grid;
-    grid-template-columns: 2fr 3fr;
-    gap: var(--space-4);
-    padding: var(--space-3) var(--space-4);
-    border-bottom: var(--border-width-base) solid var(--border-subtle);
-    align-items: center;
-  }
-
-  .structure-row:last-child { border-bottom: none; }
-  .structure-row:hover { background: var(--bg-faint); }
-
-  .comp-name {
-    font-family: var(--font-mono);
-    font-size: var(--size-xs);
-    color: var(--text-base);
-    font-weight: 600;
-  }
-
-  .comp-desc {
-    font-size: var(--body-sm);
-    color: var(--text-subtle);
-    line-height: 1.5;
   }
 
   .token-row {
@@ -147,5 +143,11 @@ import { Badge } from '../../cedar/components/Badge/Badge';
   .token-usage {
     font-size: var(--body-sm);
     color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
   }
 </style>

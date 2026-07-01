@@ -94,6 +94,29 @@ const primitiveGroups = [
       ))}
     </section>
 
+    <!-- Design notes -->
+    <section>
+      <h2 class="sub-title">Design decisions</h2>
+      <div class="note-card">
+        <p class="note-title">status/success contrast fix — WCAG AA</p>
+        <p class="note-body">
+          <code>status/success</code> was previously aliased to <code>success/500</code> (#3a9c5e), yielding
+          <strong>1.68:1</strong> contrast against the <code>success/100</code> background — a WCAG fail.
+          It is now aliased to <code>success/700</code> (#1f6b3f) → <strong>5.66:1</strong> (passes AA).
+          Background tokens remain on <code>success/100</code>.
+        </p>
+      </div>
+      <div class="note-card">
+        <p class="note-title">warning and destructive repoints</p>
+        <p class="note-body">
+          When <code>brand/amber</code> was recolored to blue and renamed <code>brand/secondary</code>,
+          <code>status/warning</code> (which sourced from amber) was repointed to <code>brand/orange/600</code>
+          to preserve its warm semantics. Similarly <code>action/destructive</code> moved from the old
+          sienna ramp to <code>error/600</code> — keeping the same visual intent with a stable source.
+        </p>
+      </div>
+    </section>
+
     <!-- Primitive palettes -->
     <section>
       <h2 class="sub-title">Primitive palettes</h2>
@@ -133,6 +156,39 @@ const primitiveGroups = [
 
   .token-group {
     margin-bottom: var(--space-6);
+  }
+
+  .note-card {
+    background: var(--bg-faint);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-left: var(--border-width-bold) solid var(--action-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-5);
+    margin-bottom: var(--space-4);
+  }
+
+  .note-title {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    font-weight: 600;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .note-body {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .note-body code {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    background: var(--bg-muted);
+    padding: 1px 5px;
+    border-radius: var(--radius-sm);
+    color: var(--text-base);
   }
 
   .group-title {
