@@ -1,0 +1,233 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import { PlacementDemo, TooltipOnBadge, TooltipOnIcon, TooltipOnDisabled } from '../../cedar/components/Tooltip/TooltipDemo';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Tooltip">
+  <PageHeader
+    eyebrow="Components"
+    title="Tooltip"
+    description="Contextual label that appears on hover or focus. Use to clarify icon-only controls, reveal truncated text, or explain values that need definition — not to repeat visible labels."
+  />
+
+  <PageContent>
+
+    <!-- Placement -->
+    <section>
+      <h2 class="section-title">Placement</h2>
+      <p class="section-desc">Four placements: top (default), bottom, left, right. The tooltip is positioned relative to its trigger using absolute coordinates on <code>document.body</code>, so it never clips inside overflow-hidden containers.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <PlacementDemo placement="top" client:load />
+          <PlacementDemo placement="bottom" client:load />
+          <PlacementDemo placement="left" client:load />
+          <PlacementDemo placement="right" client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Realistic usage -->
+    <section>
+      <h2 class="section-title">Usage examples</h2>
+      <div class="demo-block">
+        <div class="demo-row labeled">
+          <span class="row-label">On a badge</span>
+          <TooltipOnBadge client:load />
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">On an icon button</span>
+          <TooltipOnIcon client:load />
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">On a disabled button</span>
+          <TooltipOnDisabled client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Behaviour -->
+    <section>
+      <h2 class="section-title">Behaviour</h2>
+      <div class="token-table">
+        {[
+          { prop: 'Trigger',    desc: 'mouseenter / mouseleave and focus / blur. No click required.' },
+          { prop: 'Delay',      desc: 'None in v1. Enter delay (150–200ms) deferred to v2 to prevent flicker on fast cursors.' },
+          { prop: 'Dismiss',    desc: 'Automatically on mouseleave or blur. Not dismissible by keyboard (Escape).' },
+          { prop: 'Pointer',    desc: 'pointerEvents: none on the tooltip — it never intercepts hover and creates dead zones.' },
+          { prop: 'Max width',  desc: '240px with word-wrap. Content beyond that wraps to a second line.' },
+          { prop: 'z-index',    desc: '1200 — above modals (1000) and toasts (1100).' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.prop}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Accessibility -->
+    <section>
+      <h2 class="section-title">Accessibility</h2>
+      <div class="token-table">
+        {[
+          { attr: 'role="tooltip"',        desc: 'Applied to the tooltip element so screen readers announce it as supplemental info.' },
+          { attr: 'aria-describedby',      desc: 'Set on the trigger (pointing to the tooltip id) while the tooltip is visible.' },
+          { attr: 'focus trigger',          desc: 'Tooltip appears on keyboard focus, not only on hover — required for WCAG 2.1 SC 1.4.13.' },
+          { attr: 'Disabled buttons',      desc: 'Wrap a disabled button in a <span> so it can receive hover/focus and show the tooltip.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.attr}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Usage guidance -->
+    <section>
+      <h2 class="section-title">Usage guidance</h2>
+      <div class="token-table">
+        {[
+          { rule: 'Do',    desc: 'Use for icon-only controls that have no visible label.' },
+          { rule: 'Do',    desc: 'Use to define jargon or metric abbreviations (e.g., "78% adoption" → explain what adoption means).' },
+          { rule: 'Do',    desc: 'Keep content to one or two short sentences. Tooltips are not docs.' },
+          { rule: "Don't", desc: 'Put interactive elements (links, buttons) inside a tooltip — use a popover instead.' },
+          { rule: "Don't", desc: 'Use a tooltip to communicate an error — use a field error or toast.' },
+          { rule: "Don't", desc: 'Tooltip a label that already describes itself. "Save button → saves your work" adds no value.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class:list={['token-name', row.rule === "Don't" ? 'token-dont' : 'token-do']}>{row.rule}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'neutral/900',      usage: 'Tooltip background (#252525 — near-black)' },
+          { token: 'foundations/white', usage: 'Tooltip text' },
+          { token: 'radius/md',         usage: 'Corner radius (8px)' },
+          { token: 'space/3',           usage: 'Horizontal padding (12px)' },
+          { token: 'font/base',         usage: 'Typeface (Inter)' },
+          { token: 'size/xs',           usage: 'Font size (14px)' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="information" badgeStyle="subtle" client:load>Figma: In progress</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+        <Badge color="information" badgeStyle="subtle" client:load>Enter delay + arrow: v2</Badge>
+      </div>
+    </section>
+
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .section-desc code {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    background: var(--bg-muted);
+    padding: 1px 5px;
+    border-radius: var(--radius-sm);
+    color: var(--text-base);
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: visible;
+  }
+
+  .demo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    padding: var(--space-6) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+
+  .demo-row.labeled {
+    justify-content: flex-start;
+  }
+
+  .row-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    width: 160px;
+    flex-shrink: 0;
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-do   { color: var(--status-success); }
+  .token-dont { color: var(--status-error); }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+</style>
