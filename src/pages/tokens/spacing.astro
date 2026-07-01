@@ -35,6 +35,8 @@ const scaleTokens = [
   { name: 'scale/1400', var: '--scale-1400', value: '72px'  },
   { name: 'scale/1500', var: '--scale-1500', value: '96px'  },
   { name: 'scale/1600', var: '--scale-1600', value: '128px' },
+  { name: 'scale/1700', var: '--scale-1700', value: '256px' },
+  { name: 'scale/1800', var: '--scale-1800', value: '999px' },
 ];
 ---
 
@@ -65,6 +67,31 @@ const scaleTokens = [
                 style={t.scale > 0 ? `width: ${Math.min(t.scale * 4, 200)}px` : 'width: 2px; background: var(--border-subtle)'}
               />
             </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sub-title">Grid / Layout <span class="responsive-badge">Responsive</span></h2>
+      <p class="sub-desc">Layout structure tokens with three modes — Desktop, Tablet, Mobile. Applied automatically via CSS media queries. Use these to build consistent page grids rather than hardcoding column counts and margins.</p>
+
+      <div class="token-table">
+        <div class="table-header grid-header">
+          <span>Token</span><span>CSS var</span><span>Desktop</span><span>Tablet</span><span>Mobile</span>
+        </div>
+        {[
+          { name: 'grid/columns/count', var: '--grid-columns-count', desktop: '12',     tablet: '8',    mobile: '4'    },
+          { name: 'grid/gutter',        var: '--grid-gutter',        desktop: '32px',   tablet: '24px', mobile: '16px' },
+          { name: 'grid/margin',        var: '--grid-margin',        desktop: '80px',   tablet: '32px', mobile: '16px' },
+          { name: 'grid/max-width',     var: '--grid-max-width',     desktop: '1280px', tablet: '768px',mobile: '375px'},
+        ].map(t => (
+          <div class="table-row grid-row">
+            <code class="token-name">{t.name}</code>
+            <code class="token-var">{t.var}</code>
+            <code class="token-value">{t.desktop}</code>
+            <code class="token-value">{t.tablet}</code>
+            <code class="token-value">{t.mobile}</code>
           </div>
         ))}
       </div>
@@ -163,5 +190,21 @@ const scaleTokens = [
     border-radius: var(--radius-sm);
     min-width: 2px;
     opacity: 0.7;
+  }
+
+  .grid-header, .grid-row {
+    grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+  }
+
+  .responsive-badge {
+    display: inline-block;
+    font-size: var(--size-xs);
+    font-weight: 500;
+    background: var(--action-primary);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    margin-left: var(--space-2);
+    vertical-align: middle;
   }
 </style>

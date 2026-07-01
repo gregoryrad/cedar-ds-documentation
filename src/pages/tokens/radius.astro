@@ -4,12 +4,12 @@ import PageHeader from '../../components/PageHeader.astro';
 import PageContent from '../../components/PageContent.astro';
 
 const tokens = [
-  { name: 'radius/none', var: '--radius-none', value: '0px',   alias: 'scale/0',    note: 'Sharp edges — use for data-dense UIs like tables.' },
-  { name: 'radius/sm',   var: '--radius-sm',   value: '1px',   alias: 'scale/25',   note: 'Barely perceptible rounding. Input borders, grid cells.' },
-  { name: 'radius/md',   var: '--radius-md',   value: '2px',   alias: 'scale/50',   note: 'Subtle rounding. Standard for form controls.' },
-  { name: 'radius/lg',   var: '--radius-lg',   value: '8px',   alias: '(direct)',   note: 'General-purpose rounding. Cards, dropdowns, tooltips.' },
-  { name: 'radius/xl',   var: '--radius-xl',   value: '16px',  alias: 'scale/400',  note: 'Prominent rounding. Feature cards, modals.' },
-  { name: 'radius/full', var: '--radius-full', value: '999px', alias: 'scale/1800', note: 'Pill shape. Badges, chips, avatar.' },
+  { name: 'radius/none', var: '--radius-none', value: '0px',   alias: 'scale/0',    note: 'Sharp edges — use for data-dense UIs like tables and grid cells.' },
+  { name: 'radius/sm',   var: '--radius-sm',   value: '4px',   alias: 'scale/100',  note: 'Subtle rounding. Checkbox boxes, small chips, code blocks.' },
+  { name: 'radius/md',   var: '--radius-md',   value: '8px',   alias: 'scale/200',  note: 'Standard rounding. Input fields, cards, data grid cells.' },
+  { name: 'radius/lg',   var: '--radius-lg',   value: '12px',  alias: 'scale/300',  note: 'Prominent rounding. Buttons, dropdown menus, tooltips.' },
+  { name: 'radius/xl',   var: '--radius-xl',   value: '16px',  alias: 'scale/400',  note: 'Large rounding. Feature cards, modals, large panels.' },
+  { name: 'radius/full', var: '--radius-full', value: '999px', alias: 'scale/1800', note: 'Pill shape. Badges, chips, avatar frames.' },
 ];
 ---
 
