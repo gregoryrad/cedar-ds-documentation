@@ -1,0 +1,252 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import {
+  ToggleOff, ToggleOn, ToggleSmOff, ToggleSmOn,
+  ToggleWithLabel, ToggleLabelDisabled, ToggleFullDemo,
+} from '../../cedar/components/Toggle/ToggleDemo';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Toggle">
+  <PageHeader
+    eyebrow="Components"
+    title="Toggle"
+    description="A binary switch for settings and preferences. Three layers: the bare control, an inline-labeled variant, and a full-width variant with description — mirroring the Checkbox pattern."
+  />
+
+  <PageContent>
+
+    <!-- States -->
+    <section>
+      <h2 class="section-title">States</h2>
+      <p class="section-desc">Toggle uses <code>role="switch"</code> and <code>aria-checked</code>. The thumb slides on a smooth 0.2s transition. Click or press Space/Enter to toggle.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <span class="row-label">Off · md</span>
+          <ToggleOff client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">On · md</span>
+          <ToggleOn client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">Off · sm</span>
+          <ToggleSmOff client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">On · sm</span>
+          <ToggleSmOn client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- With label -->
+    <section>
+      <h2 class="section-title">With label</h2>
+      <p class="section-desc">Pass a <code>label</code> prop to get an inline label rendered as a wrapping <code>{'<label>'}</code> element — clicking the text toggles the control.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <ToggleWithLabel client:load />
+        </div>
+        <div class="demo-row">
+          <ToggleLabelDisabled client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Toggle Full -->
+    <section>
+      <h2 class="section-title">With description — Toggle Full</h2>
+      <p class="section-desc">Pass both <code>label</code> and <code>description</code> to get the full-width layout: label and description on the left, toggle on the right. Use in settings panels.</p>
+      <div class="demo-block full-block">
+        <ToggleFullDemo client:load />
+      </div>
+    </section>
+
+    <!-- Sizes -->
+    <section>
+      <h2 class="section-title">Sizes</h2>
+      <div class="token-table">
+        {[
+          { size: 'sm', track: '32 × 18px', thumb: '14px', desc: 'Compact settings rows, dense lists.' },
+          { size: 'md', track: '40 × 22px', thumb: '18px', desc: 'Default. Settings pages, preference panels.' },
+        ].map(row => (
+          <div class="token-row size-row">
+            <code class="token-name">{row.size}</code>
+            <code class="token-name">{row.track}</code>
+            <code class="token-name">{row.thumb}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Keyboard -->
+    <section>
+      <h2 class="section-title">Keyboard &amp; accessibility</h2>
+      <div class="token-table">
+        {[
+          { key: 'Space / Enter', desc: 'Toggle the switch.' },
+          { key: 'Tab',           desc: 'Move focus to/from the switch.' },
+          { key: 'role="switch"', desc: 'Signals a binary on/off control to screen readers.' },
+          { key: 'aria-checked',  desc: '"true" when on, "false" when off. Screen readers announce state on change.' },
+          { key: 'Label element', desc: 'When label prop is set, the wrapping <label> means clicking the label text also toggles.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.key}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section>
+      <h2 class="section-title">Usage guidance</h2>
+      <div class="token-table">
+        {[
+          { rule: 'Do',    desc: 'Use Toggle for settings that take effect immediately — no Save button needed.' },
+          { rule: 'Do',    desc: 'Use the Full variant in settings panels where context is important.' },
+          { rule: 'Do',    desc: 'Describe the on state in the label: "Email notifications" not "Notifications toggle".' },
+          { rule: "Don't", desc: 'Use Toggle for form choices that require submission — use Checkbox instead.' },
+          { rule: "Don't", desc: 'Use Toggle for multi-select scenarios — use Checkboxes.' },
+          { rule: "Don't", desc: 'Stack more than 6–8 toggles without grouping them into sections with labels.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class:list={['token-name', row.rule === "Don't" ? 'token-dont' : 'token-do']}>{row.rule}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'action/primary',      usage: 'Track — on state' },
+          { token: 'border/subtle',       usage: 'Track — off state (#CCCCCC)' },
+          { token: 'bg/disabled',         usage: 'Track — disabled state (both on and off)' },
+          { token: 'foundations/white',   usage: 'Thumb fill' },
+          { token: 'text/base',           usage: 'Label text' },
+          { token: 'text/subtle',         usage: 'Description text (Full variant)' },
+          { token: 'text/disabled',       usage: 'Label and description when disabled' },
+          { token: 'radius/full',         usage: 'Track and thumb shape (pill / circle)' },
+          { token: 'space/3',             usage: 'Gap between control and inline label (12px)' },
+          { token: 'space/4',             usage: 'Gap between text and toggle (Full variant, 16px)' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="information" badgeStyle="subtle" client:load>Figma: In progress</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+        <Badge color="information" badgeStyle="subtle" client:load>Focus ring: v2</Badge>
+      </div>
+    </section>
+
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .section-desc code {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    background: var(--bg-muted);
+    padding: 1px 5px;
+    border-radius: var(--radius-sm);
+    color: var(--text-base);
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .full-block { padding: 0; }
+
+  .demo-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+
+  .row-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    width: 80px;
+    flex-shrink: 0;
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .size-row { grid-template-columns: 0.5fr 1fr 0.75fr 3fr; }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-do   { color: var(--status-success); }
+  .token-dont { color: var(--status-error); }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+</style>
