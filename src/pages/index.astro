@@ -12,7 +12,7 @@ import { Spinner } from '../cedar/components/Spinner/Spinner';
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-eyebrow">
-        <Badge color="success" badgeStyle="subtle" client:load>v1 · In progress</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>v1 · Shipped</Badge>
       </div>
       <h1 class="hero-title">
         A design system<br />
@@ -234,15 +234,15 @@ import { Spinner } from '../cedar/components/Spinner/Spinner';
       <h2 class="section-label">Explore Cedar</h2>
       <div class="nav-card-grid">
         {[
-          { href: '/tokens/color', title: 'Color', desc: '214 variables · 10 collections · Primitive + semantic layers', badge: 'Done' },
-          { href: '/components/button', title: 'Components', desc: '8 component pages with live demos · All built on Cedar tokens', badge: 'Done' },
-          { href: '/built-with-cedar', title: 'Built with Cedar', desc: 'DayLog · A real PWA using this exact system in production', badge: 'Live' },
-          { href: '/roadmap', title: 'Roadmap', desc: 'v1 shipped · v2 in planning · Dark mode, Storybook, more components', badge: 'v2 coming' },
+          { href: '/tokens/color', title: 'Color', desc: '214 variables · 10 collections · Primitive + semantic layers', badge: 'Done', badgeColor: 'success' },
+          { href: '/components/button', title: 'Components', desc: '8 component pages with live demos · All built on Cedar tokens', badge: 'Done', badgeColor: 'success' },
+          { href: '/built-with-cedar', title: 'Built with Cedar', desc: 'DayLog · A real PWA using this exact system in production', badge: 'Live', badgeColor: 'success' },
+          { href: '/roadmap', title: 'Roadmap', desc: 'v1 shipped · v2 in planning · Dark mode, Storybook, more components', badge: 'v2 coming', badgeColor: 'information' },
         ].map(card => (
           <a href={card.href} class="nav-card">
             <div class="nav-card-top">
               <h3 class="nav-card-title">{card.title}</h3>
-              <Badge color="success" badgeStyle="subtle" size="sm" client:load>{card.badge}</Badge>
+              <Badge color={card.badgeColor as any} badgeStyle="subtle" size="sm" client:load>{card.badge}</Badge>
             </div>
             <p class="nav-card-desc">{card.desc}</p>
           </a>
