@@ -12,7 +12,7 @@ import { Spinner } from '../cedar/components/Spinner/Spinner';
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-eyebrow">
-        <Badge color="success" badgeStyle="subtle" client:load>v1 · Shipped</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>v2 · Shipped</Badge>
       </div>
       <h1 class="hero-title">
         A design system<br />
@@ -37,7 +37,7 @@ import { Spinner } from '../cedar/components/Spinner/Spinner';
         <span class="sep">·</span>
         <span>10 token collections</span>
         <span class="sep">·</span>
-        <span>8 documented, 23 in Figma</span>
+        <span>20 documented, 23 in Figma</span>
         <span class="sep">·</span>
         <span>1 real-world app</span>
       </div>
@@ -174,7 +174,7 @@ import { Spinner } from '../cedar/components/Spinner/Spinner';
             <Alert variant="success" title="Changes saved" client:load>Your updates have been applied successfully.</Alert>
             <Alert variant="error" title="Validation failed" client:load>Please fix the errors before continuing.</Alert>
             <Alert variant="warning" title="Heads up" client:load>This action cannot be undone.</Alert>
-            <Alert variant="information" title="New feature" client:load>Dark mode is coming in v2.</Alert>
+            <Alert variant="information" title="New feature" client:load>Dark mode is coming in v2c.</Alert>
           </div>
         </Card>
 
@@ -235,9 +235,9 @@ import { Spinner } from '../cedar/components/Spinner/Spinner';
       <div class="nav-card-grid">
         {[
           { href: '/tokens/color', title: 'Color', desc: '214 variables · 10 collections · Primitive + semantic layers', badge: 'Done', badgeColor: 'success' },
-          { href: '/components/button', title: 'Components', desc: '8 component pages with live demos · All built on Cedar tokens', badge: 'Done', badgeColor: 'success' },
+          { href: '/components/button', title: 'Components', desc: '20 component pages with live demos · All built on Cedar tokens', badge: 'Done', badgeColor: 'success' },
           { href: '/built-with-cedar', title: 'Built with Cedar', desc: 'DayLog · A real PWA using this exact system in production', badge: 'Live', badgeColor: 'success' },
-          { href: '/roadmap', title: 'Roadmap', desc: 'v1 shipped · v2 in planning · Dark mode, Storybook, more components', badge: 'v2 coming', badgeColor: 'information' },
+          { href: '/roadmap', title: 'Roadmap', desc: 'v1 + v2 shipped · 20 components · v2c features up next', badge: 'v2c next', badgeColor: 'information' },
         ].map(card => (
           <a href={card.href} class="nav-card">
             <div class="nav-card-top">
