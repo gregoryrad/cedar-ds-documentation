@@ -142,13 +142,21 @@ const isComponents = currentPath.startsWith('/components');
 
   .nav-links {
     display: flex;
-    align-items: center;
+    align-items: stretch;
+    align-self: stretch;
     gap: var(--space-1);
     list-style: none;
   }
 
+  .nav-links > li {
+    display: flex;
+    align-items: center;
+  }
+
   .nav-group {
     position: relative;
+    display: flex;
+    align-items: center;
   }
 
   .nav-group:hover .nav-dropdown {
@@ -180,7 +188,7 @@ const isComponents = currentPath.startsWith('/components');
     display: none;
     flex-direction: column;
     position: absolute;
-    top: calc(100% + var(--space-1));
+    top: 100%;
     left: 0;
     background-color: var(--bg-base);
     border: var(--border-width-base) solid var(--border-subtle);
