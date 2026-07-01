@@ -1,0 +1,237 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import { ModalDemo } from '../../cedar/components/Modal/ModalDemo';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Modal">
+  <PageHeader
+    eyebrow="Components"
+    title="Modal"
+    description="A dialog that interrupts the user to collect confirmation, display critical information, or complete a focused task. Rendered in a portal above all other content."
+  />
+
+  <PageContent>
+
+    <!-- Variants -->
+    <section>
+      <h2 class="section-title">Variants</h2>
+      <p class="section-desc">Three interaction patterns: confirm, destructive, and informational. Confirm and destructive modals always include Cancel + a primary action. Informational modals use a single Close button.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <span class="row-label">Confirm</span>
+          <ModalDemo variant="confirm" client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">Destructive</span>
+          <ModalDemo variant="destructive" client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">Informational</span>
+          <ModalDemo variant="info" client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">With form</span>
+          <ModalDemo variant="form" client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Sizes -->
+    <section>
+      <h2 class="section-title">Sizes</h2>
+      <p class="section-desc">Three widths. Use sm for simple confirmations, md (default) for most dialogs, lg for complex forms or content-heavy tasks.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <span class="row-label">sm · 440px</span>
+          <ModalDemo variant="destructive" size="sm" client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">md · 560px</span>
+          <ModalDemo variant="confirm" size="md" client:load />
+        </div>
+        <div class="demo-row">
+          <span class="row-label">lg · 720px</span>
+          <ModalDemo variant="form" size="lg" client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Anatomy -->
+    <section>
+      <h2 class="section-title">Anatomy</h2>
+      <div class="token-table">
+        {[
+          { part: 'Backdrop',      desc: 'Fixed full-screen scrim (rgba 0,0,0,0.48). Clicking it closes the modal.' },
+          { part: 'Dialog',        desc: 'Centered card with max-height: calc(100vh − 64px) and vertical scroll on the body.' },
+          { part: 'Header',        desc: 'Title (required), optional description, and a close ×  button in the top-right.' },
+          { part: 'Body',          desc: 'Scrollable content area. Accepts any ReactNode — text, forms, lists.' },
+          { part: 'Footer',        desc: 'Action buttons right-aligned. Primary action on the right, Cancel on the left.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.part}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Keyboard -->
+    <section>
+      <h2 class="section-title">Keyboard &amp; accessibility</h2>
+      <div class="token-table">
+        {[
+          { key: 'Escape',         desc: 'Close the modal.' },
+          { key: 'Tab',            desc: 'Cycle forward through focusable elements within the dialog.' },
+          { key: 'Shift + Tab',    desc: 'Cycle backward.' },
+          { key: 'Click backdrop', desc: 'Close the modal.' },
+          { key: 'role="dialog"',  desc: 'Announces the dialog to screen readers. aria-labelledby points to the title.' },
+          { key: 'aria-modal',     desc: 'Prevents screen readers from browsing outside the open dialog.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.key}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section>
+      <h2 class="section-title">Usage guidance</h2>
+      <div class="token-table">
+        {[
+          { rule: 'Do',     desc: 'Use for irreversible or high-stakes actions (delete, publish, deactivate).' },
+          { rule: 'Do',     desc: 'Keep modal titles short and action-oriented: "Delete component?" not "Are you sure?"' },
+          { rule: 'Do',     desc: 'Return focus to the trigger element after the modal closes.' },
+          { rule: "Don't",  desc: 'Nest modals. One at a time only.' },
+          { rule: "Don't",  desc: 'Use a modal for success states — prefer Toast for non-blocking feedback.' },
+          { rule: "Don't",  desc: 'Put a scrolling table or complex navigation inside a modal — use a full page instead.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class:list={['token-name', row.rule === "Don't" ? 'token-dont' : 'token-do']}>{row.rule}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'bg/base',           usage: 'Dialog background' },
+          { token: 'text/base',         usage: 'Title text' },
+          { token: 'text/subtle',       usage: 'Description, body text, close button icon' },
+          { token: 'border/subtle',     usage: 'Header and footer dividers' },
+          { token: 'border-width/base', usage: 'Divider weight (1px)' },
+          { token: 'bg/faint',          usage: 'Close button hover background' },
+          { token: 'radius/xl',         usage: 'Dialog corner radius (16px)' },
+          { token: 'radius/md',         usage: 'Close button hover radius (8px)' },
+          { token: 'space/5',           usage: 'Header and body vertical padding (20px)' },
+          { token: 'space/6',           usage: 'Header and body horizontal padding (24px)' },
+          { token: 'space/4',           usage: 'Footer vertical padding (16px)' },
+          { token: 'space/3',           usage: 'Footer button gap (12px)' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="information" badgeStyle="subtle" client:load>Figma: In progress</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+        <Badge color="information" badgeStyle="subtle" client:load>Animation: v2</Badge>
+      </div>
+    </section>
+
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .demo-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+
+  .row-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    width: 120px;
+    flex-shrink: 0;
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-do   { color: var(--status-success); }
+  .token-dont { color: var(--status-error); }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+</style>
