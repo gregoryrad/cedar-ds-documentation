@@ -1,0 +1,224 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import { PaginationDemo } from '../../cedar/components/Pagination/PaginationDemo';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Pagination">
+  <PageHeader
+    eyebrow="Components"
+    title="Pagination"
+    description="Navigation control for moving through a multi-page data set. Shows page numbers with ellipsis compression for large ranges, plus Prev/Next controls."
+  />
+
+  <PageContent>
+
+    <!-- Live demo -->
+    <section>
+      <h2 class="section-title">Live demo</h2>
+      <p class="section-desc">Click page numbers or Prev/Next to navigate. Ellipsis collapses distant pages once the range exceeds 7 items.</p>
+      <div class="demo-block">
+        <div class="demo-row">
+          <PaginationDemo totalPages={12} initialPage={1} client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- States -->
+    <section>
+      <h2 class="section-title">States</h2>
+      <div class="demo-block">
+        <div class="demo-row labeled">
+          <span class="row-label">First page</span>
+          <PaginationDemo totalPages={12} initialPage={1} client:load />
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">Middle</span>
+          <PaginationDemo totalPages={12} initialPage={6} client:load />
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">Last page</span>
+          <PaginationDemo totalPages={12} initialPage={12} client:load />
+        </div>
+        <div class="demo-row labeled">
+          <span class="row-label">Short range</span>
+          <PaginationDemo totalPages={5} initialPage={3} client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Ellipsis logic -->
+    <section>
+      <h2 class="section-title">Ellipsis compression</h2>
+      <div class="token-table">
+        {[
+          { case: '≤ 7 pages',           result: 'All pages shown — no ellipsis.' },
+          { case: 'Near the start',       result: '[1] [2] [3] … [N] — right ellipsis only.' },
+          { case: 'Near the end',         result: '[1] … [N−2] [N−1] [N] — left ellipsis only.' },
+          { case: 'In the middle',        result: '[1] … [current−1] [current] [current+1] … [N] — both ellipses.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.case}</code>
+            <span class="token-usage">{row.result}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Anatomy -->
+    <section>
+      <h2 class="section-title">Anatomy</h2>
+      <div class="token-table">
+        {[
+          { part: 'Prev / Next',   desc: 'Icon-only buttons. Disabled (and non-clickable) on the first and last page respectively.' },
+          { part: 'Page button',   desc: 'Ghost style when inactive. Filled (action/primary bg, white text) when current.' },
+          { part: 'Ellipsis',      desc: 'Non-interactive placeholder (…) indicating skipped pages. aria-hidden.' },
+          { part: 'Current page',  desc: 'aria-current="page" set on the active button for screen reader announcement.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.part}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section>
+      <h2 class="section-title">Usage guidance</h2>
+      <div class="token-table">
+        {[
+          { rule: 'Do',    desc: 'Pair with a "Page X of Y" label so users always know their position.' },
+          { rule: 'Do',    desc: 'Reset to page 1 when the user changes filters or sort order.' },
+          { rule: 'Do',    desc: 'Use for server-side paginated data. For client-side lists, consider infinite scroll or a Load More button instead.' },
+          { rule: "Don't", desc: 'Use pagination for fewer than 2 pages — hide it entirely.' },
+          { rule: "Don't", desc: 'Change the total page count mid-navigation without resetting to page 1.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class:list={['token-name', row.rule === "Don't" ? 'token-dont' : 'token-do']}>{row.rule}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'action/primary',     usage: 'Current page button background' },
+          { token: 'action/on-primary',  usage: 'Current page button text' },
+          { token: 'text/subtle',        usage: 'Inactive page numbers and Prev/Next icons' },
+          { token: 'text/base',          usage: 'Inactive page hover text' },
+          { token: 'text/disabled',      usage: 'Prev (on page 1) / Next (on last page)' },
+          { token: 'bg/faint',           usage: 'Inactive page hover background' },
+          { token: 'radius/md',          usage: 'Button corner radius (8px)' },
+          { token: 'border-width/base',  usage: 'Button border (transparent by default)' },
+          { token: 'space/1',            usage: 'Gap between buttons (4px)' },
+          { token: 'body/sm',            usage: 'Page number font size' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="information" badgeStyle="subtle" client:load>Figma: In progress</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+        <Badge color="information" badgeStyle="subtle" client:load>Page size selector: v2</Badge>
+      </div>
+    </section>
+
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .demo-block {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .demo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-5);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .demo-row:last-child { border-bottom: none; }
+
+  .demo-row.labeled { justify-content: flex-start; }
+
+  .row-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+    width: 100px;
+    flex-shrink: 0;
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-do   { color: var(--status-success); }
+  .token-dont { color: var(--status-error); }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+</style>
