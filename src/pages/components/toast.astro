@@ -1,0 +1,247 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PageContent from '../../components/PageContent.astro';
+import { ToastDemo } from '../../cedar/components/Toast/ToastDemo';
+import { Badge } from '../../cedar/components/Badge/Badge';
+---
+
+<BaseLayout title="Toast">
+  <PageHeader
+    eyebrow="Components"
+    title="Toast"
+    description="Non-blocking notifications that appear at the bottom-right of the viewport and auto-dismiss after a timeout. Used for system feedback — saves, errors, warnings, and informational updates."
+  />
+
+  <PageContent>
+
+    <!-- Live demo -->
+    <section>
+      <h2 class="section-title">Live demo</h2>
+      <p class="section-desc">Click any variant to fire a toast. Toasts stack and auto-dismiss after 4 seconds. Error toasts are persistent — dismiss manually.</p>
+      <div class="demo-wrap">
+        <ToastDemo client:load />
+      </div>
+    </section>
+
+    <!-- Variants -->
+    <section>
+      <h2 class="section-title">Variants</h2>
+      <div class="token-table">
+        {[
+          { variant: 'Success',     desc: 'Confirms a completed action. Use after saves, publishes, or successful operations. Auto-dismisses (4s).' },
+          { variant: 'Error',       desc: 'Signals a failure that needs attention. Persistent by default — do not auto-dismiss errors the user hasn\'t read.' },
+          { variant: 'Warning',     desc: 'Draws attention to a condition that may cause issues. Auto-dismisses (4s).' },
+          { variant: 'Information', desc: 'Provides neutral context or guidance. Optionally includes an action link. Auto-dismisses (4s).' },
+          { variant: 'Neutral',     desc: 'For low-signal confirmations: settings saved, clipboard copied. Shortest auto-dismiss cadence.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.variant}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Anatomy -->
+    <section>
+      <h2 class="section-title">Anatomy</h2>
+      <div class="token-table">
+        {[
+          { part: 'Left accent',  desc: '3px solid border in the variant color — the primary visual signal at a glance.' },
+          { part: 'Icon',         desc: 'Variant-specific icon in the accent color. Reinforces the semantic meaning.' },
+          { part: 'Title',        desc: 'Optional. Use for toasts where the action name and the outcome are different things.' },
+          { part: 'Message',      desc: 'Required. One or two lines max. Be specific: "Button v2.3 published" not "Success."' },
+          { part: 'Action',       desc: 'Optional inline link. One action only — "View guide", "Undo", "Retry".' },
+          { part: 'Dismiss (×)',  desc: 'Always shown. Click to remove immediately.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.part}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Behaviour -->
+    <section>
+      <h2 class="section-title">Behaviour</h2>
+      <div class="token-table">
+        {[
+          { prop: 'duration',  default: '4000ms', desc: 'Auto-dismiss delay. Pass 0 for persistent (recommended for errors).' },
+          { prop: 'position',  default: 'bottom-right', desc: 'Fixed at bottom: 24px, right: 24px. Stacks upward when multiple toasts are visible.' },
+          { prop: 'stacking',  default: 'FIFO', desc: 'Toasts stack oldest-on-top. Each has its own dismiss timer.' },
+          { prop: 'z-index',   default: '1100', desc: 'Renders above modals (1000) so toasts remain visible when a modal is open.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.prop}</code>
+            <span class="token-usage"><strong>{row.default}</strong> — {row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- API -->
+    <section>
+      <h2 class="section-title">API</h2>
+      <p class="section-desc">Wrap your app (or the relevant subtree) in <code>ToastProvider</code>, then call <code>useToast()</code> to fire toasts from any child component.</p>
+      <div class="token-table">
+        {[
+          { prop: 'message',  type: 'string',           req: true,  desc: 'The notification text.' },
+          { prop: 'title',    type: 'string',           req: false, desc: 'Optional bold heading above the message.' },
+          { prop: 'variant',  type: 'ToastVariant',     req: false, desc: 'success | error | warning | information | neutral. Default: neutral.' },
+          { prop: 'duration', type: 'number',           req: false, desc: 'Auto-dismiss delay in ms. 0 = persistent. Default: 4000.' },
+          { prop: 'action',   type: '{ label, onClick }', req: false, desc: 'Inline action button rendered below the message.' },
+          { prop: 'id',       type: 'string',           req: false, desc: 'Stable ID to prevent duplicate toasts (e.g., on rapid re-fires).' },
+        ].map(row => (
+          <div class="token-row api-row">
+            <code class="token-name">{row.prop}</code>
+            <code class="token-type">{row.type}{row.req ? '' : '?'}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section>
+      <h2 class="section-title">Usage guidance</h2>
+      <div class="token-table">
+        {[
+          { rule: 'Do',    desc: 'Use toast for system feedback after user-initiated actions (save, delete, publish).' },
+          { rule: 'Do',    desc: 'Keep messages under two lines. One clear sentence is almost always enough.' },
+          { rule: 'Do',    desc: 'Make error toasts persistent. Users need time to read and act on failures.' },
+          { rule: "Don't", desc: 'Use toast as the only feedback for a destructive action — always confirm with a modal first.' },
+          { rule: "Don't", desc: 'Stack more than 3–4 toasts. If many things need to fire, consider a notification drawer instead.' },
+          { rule: "Don't", desc: 'Put navigation or multi-step instructions in a toast — use an alert or page-level banner.' },
+        ].map(row => (
+          <div class="token-row">
+            <code class:list={['token-name', row.rule === "Don't" ? 'token-dont' : 'token-do']}>{row.rule}</code>
+            <span class="token-usage">{row.desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tokens -->
+    <section>
+      <h2 class="section-title">Tokens used</h2>
+      <div class="token-table">
+        {[
+          { token: 'bg/base',              usage: 'Toast background' },
+          { token: 'border/subtle',        usage: 'Outer border (all sides)' },
+          { token: 'border-width/base',    usage: 'Outer border weight (1px)' },
+          { token: 'status/success',       usage: 'Left accent and icon — success variant' },
+          { token: 'status/error',         usage: 'Left accent and icon — error variant' },
+          { token: 'status/warning',       usage: 'Left accent and icon — warning variant' },
+          { token: 'status/information',   usage: 'Left accent and icon — information variant' },
+          { token: 'border/base',          usage: 'Left accent and icon — neutral variant' },
+          { token: 'text/base',            usage: 'Title text' },
+          { token: 'text/subtle',          usage: 'Message text, dismiss icon, neutral icon' },
+          { token: 'bg/faint',             usage: 'Dismiss button hover background' },
+          { token: 'radius/lg',            usage: 'Toast corner radius (12px)' },
+          { token: 'space/4',              usage: 'Internal padding (16px)' },
+          { token: 'space/3',              usage: 'Icon-to-content gap (12px)' },
+          { token: 'space/6',             usage: 'Viewport inset bottom and right (24px)' },
+          { token: 'space/2',              usage: 'Gap between stacked toasts (8px)' },
+        ].map(row => (
+          <div class="token-row">
+            <code class="token-name">{row.token}</code>
+            <span class="token-usage">{row.usage}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <div class="figma-meta">
+        <Badge color="information" badgeStyle="subtle" client:load>Figma: In progress</Badge>
+        <Badge color="success" badgeStyle="subtle" client:load>React: v1</Badge>
+        <Badge color="information" badgeStyle="subtle" client:load>Animation: v2</Badge>
+      </div>
+    </section>
+
+  </PageContent>
+</BaseLayout>
+
+<style>
+  .section-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    color: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-desc {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+    margin-bottom: var(--space-4);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .section-desc code {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    background: var(--bg-muted);
+    padding: 1px 5px;
+    border-radius: var(--radius-sm);
+    color: var(--text-base);
+  }
+
+  .demo-wrap {
+    background: var(--bg-base);
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+  }
+
+  .token-table {
+    border: var(--border-width-base) solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-base);
+  }
+
+  .token-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-width-base) solid var(--border-subtle);
+    align-items: center;
+  }
+
+  .api-row {
+    grid-template-columns: 1.5fr 2fr 3fr;
+  }
+
+  .token-row:last-child { border-bottom: none; }
+  .token-row:hover { background: var(--bg-faint); }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-base);
+  }
+
+  .token-type {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    color: var(--text-subtle);
+  }
+
+  .token-do   { color: var(--status-success); }
+  .token-dont { color: var(--status-error); }
+
+  .token-usage {
+    font-size: var(--body-sm);
+    color: var(--text-subtle);
+  }
+
+  .figma-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+</style>
