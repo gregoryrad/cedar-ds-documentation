@@ -11,35 +11,63 @@ import { Card } from '../cedar/components/Card/Card';
   <PageHeader
     eyebrow="Real-world usage"
     title="Built with Cedar"
-    description="Cedar isn't a demo system. DayLog is a production PWA built entirely on Cedar tokens and components, proving the system holds up under real product requirements."
+    description="Cedar isn't a demo system. Cedar Ops and DayLog are production apps built entirely on Cedar tokens and components, proving the system holds up under real product requirements."
   />
 
   <PageContent>
-    <Card cardStyle="elevated" client:load>
-      <div class="app-card">
-        <div class="app-header">
-          <div>
-            <h2 class="app-name">DayLog</h2>
-            <div class="app-badges">
-              <Badge color="success" badgeStyle="subtle" size="sm" client:load>Live app</Badge>
-              <Badge color="information" badgeStyle="subtle" size="sm" client:load>PWA</Badge>
-              <Badge color="default" badgeStyle="subtle" size="sm" client:load>Cedar tokens</Badge>
+    <div class="apps-grid">
+      <Card cardStyle="elevated" client:load>
+        <div class="app-card">
+          <div class="app-header">
+            <div>
+              <h2 class="app-name">Cedar Ops</h2>
+              <div class="app-badges">
+                <Badge color="success" badgeStyle="subtle" size="sm" client:load>Live app</Badge>
+                <Badge color="information" badgeStyle="subtle" size="sm" client:load>22/23 components</Badge>
+                <Badge color="default" badgeStyle="subtle" size="sm" client:load>Cedar tokens</Badge>
+              </div>
             </div>
           </div>
+          <p class="app-desc">
+            A design system adoption dashboard — component tables, detail pages, and
+            settings, built to exercise nearly every Cedar component in production.
+          </p>
+          <Button color="brand" variant="outlined" client:load>
+            <a href="https://cedar-ds-ops.vercel.app" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
+              View Cedar Ops
+            </a>
+          </Button>
         </div>
-        <p class="app-desc">
-          A personal productivity PWA built from day one on Cedar's token and component
-          system. Every color, space, and interactive state comes directly from Cedar —
-          no one-offs, no hardcoded values.
-        </p>
-        <Button color="brand" variant="outlined" client:load>
-          View DayLog — link coming soon
-        </Button>
-      </div>
-    </Card>
+      </Card>
+
+      <Card cardStyle="elevated" client:load>
+        <div class="app-card">
+          <div class="app-header">
+            <div>
+              <h2 class="app-name">DayLog</h2>
+              <div class="app-badges">
+                <Badge color="success" badgeStyle="subtle" size="sm" client:load>Live app</Badge>
+                <Badge color="information" badgeStyle="subtle" size="sm" client:load>PWA</Badge>
+                <Badge color="default" badgeStyle="subtle" size="sm" client:load>Cedar tokens</Badge>
+              </div>
+            </div>
+          </div>
+          <p class="app-desc">
+            A personal productivity PWA built from day one on Cedar's token and component
+            system. Every color, space, and interactive state comes directly from Cedar —
+            no one-offs, no hardcoded values.
+          </p>
+          <Button color="brand" variant="outlined" client:load>
+            <a href="https://daylog-mu.vercel.app" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
+              View DayLog
+            </a>
+          </Button>
+        </div>
+      </Card>
+    </div>
 
     <section class="tokens-used">
-      <h2 class="section-title">What Cedar tokens DayLog uses</h2>
+      <h2 class="section-title">What Cedar tokens these apps use</h2>
       <div class="token-list">
         {[
           { category: 'Color / Semantic', detail: 'bg/base, bg/faint, text/base, text/subtle, action/primary, status/*' },
@@ -59,6 +87,18 @@ import { Card } from '../cedar/components/Card/Card';
 </BaseLayout>
 
 <style>
+  .apps-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 700px) {
+    .apps-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .app-card {
     display: flex;
     flex-direction: column;

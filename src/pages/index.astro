@@ -203,26 +203,47 @@ import { Spinner } from '../cedar/components/Spinner/Spinner';
   <section class="section">
     <div class="section-inner">
       <h2 class="section-label">Built with Cedar</h2>
-      <h3 class="section-title">DayLog — a real-world app</h3>
+      <h3 class="section-title">Cedar Ops &amp; DayLog — real-world apps</h3>
       <p class="section-desc">
-        Cedar isn't a demo system. DayLog is a production PWA built entirely on Cedar
-        tokens and components — proving the system holds up under real product
+        Cedar isn't a demo system. Cedar Ops and DayLog are production apps built entirely
+        on Cedar tokens and components — proving the system holds up under real product
         requirements.
       </p>
-      <div class="bwc-card">
-        <div class="bwc-meta">
-          <Badge color="success" badgeStyle="subtle" size="sm" client:load>Live app</Badge>
-          <Badge color="information" badgeStyle="subtle" size="sm" client:load>PWA</Badge>
-          <Badge color="default" badgeStyle="subtle" size="sm" client:load>Cedar tokens</Badge>
+      <div class="bwc-grid">
+        <div class="bwc-card">
+          <div class="bwc-meta">
+            <Badge color="success" badgeStyle="subtle" size="sm" client:load>Live app</Badge>
+            <Badge color="information" badgeStyle="subtle" size="sm" client:load>22/23 components</Badge>
+            <Badge color="default" badgeStyle="subtle" size="sm" client:load>Cedar tokens</Badge>
+          </div>
+          <h4 class="bwc-title">Cedar Ops</h4>
+          <p class="bwc-desc">
+            A design system adoption dashboard — component tables, detail pages, and
+            settings, built to exercise nearly every Cedar component in production.
+          </p>
+          <Button color="brand" variant="outlined" client:load>
+            <a href="https://cedar-ds-ops.vercel.app" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
+              View Cedar Ops
+            </a>
+          </Button>
         </div>
-        <h4 class="bwc-title">DayLog</h4>
-        <p class="bwc-desc">
-          A personal productivity tool built with Cedar components. Shipping tokens,
-          spacing, color semantics, and component patterns from day one.
-        </p>
-        <Button color="brand" variant="outlined" client:load>
-          View DayLog (coming soon)
-        </Button>
+        <div class="bwc-card">
+          <div class="bwc-meta">
+            <Badge color="success" badgeStyle="subtle" size="sm" client:load>Live app</Badge>
+            <Badge color="information" badgeStyle="subtle" size="sm" client:load>PWA</Badge>
+            <Badge color="default" badgeStyle="subtle" size="sm" client:load>Cedar tokens</Badge>
+          </div>
+          <h4 class="bwc-title">DayLog</h4>
+          <p class="bwc-desc">
+            A personal productivity tool built with Cedar components. Shipping tokens,
+            spacing, color semantics, and component patterns from day one.
+          </p>
+          <Button color="brand" variant="outlined" client:load>
+            <a href="https://daylog-mu.vercel.app" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
+              View DayLog
+            </a>
+          </Button>
+        </div>
       </div>
       <a href="/built-with-cedar" class="section-link" style="margin-top: var(--space-4); display: inline-block;">Full case study →</a>
     </div>
@@ -236,7 +257,7 @@ import { Spinner } from '../cedar/components/Spinner/Spinner';
         {[
           { href: '/tokens/color', title: 'Color', desc: '214 variables · 10 collections · Primitive + semantic layers', badge: 'Done', badgeColor: 'success' },
           { href: '/components/button', title: 'Components', desc: '20 component pages with live demos · All built on Cedar tokens', badge: 'Done', badgeColor: 'success' },
-          { href: '/built-with-cedar', title: 'Built with Cedar', desc: 'DayLog · A real PWA using this exact system in production', badge: 'Live', badgeColor: 'success' },
+          { href: '/built-with-cedar', title: 'Built with Cedar', desc: 'Cedar Ops & DayLog · Real apps using this exact system in production', badge: 'Live', badgeColor: 'success' },
           { href: '/roadmap', title: 'Roadmap', desc: 'v1 + v2 shipped · 20 components · v2c features up next', badge: 'v2c next', badgeColor: 'information' },
         ].map(card => (
           <a href={card.href} class="nav-card">
@@ -510,12 +531,24 @@ import { Spinner } from '../cedar/components/Spinner/Spinner';
   }
 
   /* ── Built with Cedar ── */
+  .bwc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+    max-width: 1000px;
+  }
+
+  @media (max-width: 700px) {
+    .bwc-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .bwc-card {
     background-color: var(--bg-base);
     border: var(--border-width-base) solid var(--border-subtle);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
-    max-width: 560px;
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
