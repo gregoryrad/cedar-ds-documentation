@@ -9,28 +9,55 @@ const tokenLinks = [
   { href: '/tokens/border', label: 'Border' },
 ];
 
-const componentLinks = [
-  { href: '/components/button', label: 'Button' },
-  { href: '/components/input', label: 'Input' },
-  { href: '/components/checkbox', label: 'Checkbox' },
-  { href: '/components/badge', label: 'Badge' },
-  { href: '/components/card', label: 'Card' },
-  { href: '/components/alert', label: 'Alert' },
-  { href: '/components/status', label: 'Status' },
-  { href: '/components/tabs', label: 'Tabs' },
-  { href: '/components/modal', label: 'Modal' },
-  { href: '/components/toast', label: 'Toast' },
-  { href: '/components/tooltip', label: 'Tooltip' },
-  { href: '/components/breadcrumb', label: 'Breadcrumb' },
-  { href: '/components/pagination', label: 'Pagination' },
-  { href: '/components/menu', label: 'Menu' },
-  { href: '/components/select', label: 'Select' },
-  { href: '/components/toggle', label: 'Toggle' },
-  { href: '/components/radio', label: 'Radio' },
-  { href: '/components/icon-button', label: 'Icon Button' },
-  { href: '/components/avatar', label: 'Avatar' },
-  { href: '/components/divider', label: 'Divider' },
+const componentGroups = [
+  {
+    category: 'Inputs',
+    items: [
+      { href: '/components/button', label: 'Button' },
+      { href: '/components/icon-button', label: 'Icon Button' },
+      { href: '/components/input', label: 'Input' },
+      { href: '/components/checkbox', label: 'Checkbox' },
+      { href: '/components/radio', label: 'Radio' },
+      { href: '/components/toggle', label: 'Toggle' },
+      { href: '/components/select', label: 'Select' },
+    ],
+  },
+  {
+    category: 'Data Display',
+    items: [
+      { href: '/components/badge', label: 'Badge' },
+      { href: '/components/avatar', label: 'Avatar' },
+      { href: '/components/card', label: 'Card' },
+      { href: '/components/divider', label: 'Divider' },
+    ],
+  },
+  {
+    category: 'Feedback',
+    items: [
+      { href: '/components/alert', label: 'Alert' },
+      { href: '/components/toast', label: 'Toast' },
+      { href: '/components/modal', label: 'Modal' },
+      { href: '/components/tooltip', label: 'Tooltip' },
+    ],
+  },
+  {
+    category: 'Navigation',
+    items: [
+      { href: '/components/tabs', label: 'Tabs' },
+      { href: '/components/breadcrumb', label: 'Breadcrumb' },
+      { href: '/components/pagination', label: 'Pagination' },
+      { href: '/components/menu', label: 'Menu' },
+    ],
+  },
+  {
+    category: 'Status',
+    items: [
+      { href: '/components/status', label: 'Status' },
+    ],
+  },
 ];
+
+const componentLinks = componentGroups.flatMap(group => group.items);
 
 function isActive(href: string) {
   return currentPath === href || currentPath.startsWith(href + '/');
@@ -89,15 +116,22 @@ const isComponents = currentPath.startsWith('/components');
             <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <ul class="nav-dropdown" role="list">
-          {componentLinks.map(link => (
-            <li>
-              <a
-                href={link.href}
-                class:list={['nav-link', { 'is-active': isActive(link.href) }]}
-              >
-                {link.label}
-              </a>
+        <ul class="nav-dropdown nav-dropdown-grouped" role="list">
+          {componentGroups.map(group => (
+            <li class="nav-group-block" role="none">
+              <span class="nav-group-label" role="presentation">{group.category}</span>
+              <ul class="nav-group-items" role="list">
+                {group.items.map(link => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class:list={['nav-link', { 'is-active': isActive(link.href) }]}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </li>
           ))}
         </ul>
@@ -212,6 +246,39 @@ const isComponents = currentPath.startsWith('/components');
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     list-style: none;
     gap: 2px;
+  }
+
+  .nav-dropdown-grouped {
+    min-width: 180px;
+  }
+
+  .nav-group-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .nav-group-block:not(:first-child) {
+    margin-top: var(--space-2);
+    padding-top: var(--space-2);
+    border-top: var(--border-width-base) solid var(--border-subtle);
+  }
+
+  .nav-group-label {
+    display: block;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-subtle);
+  }
+
+  .nav-group-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    list-style: none;
   }
 
   .nav-link {
