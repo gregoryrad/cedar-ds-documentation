@@ -2,65 +2,20 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import PageContent from '../../components/PageContent.astro';
-import { Spinner } from '../../cedar/components/Spinner/Spinner';
 import { ProgressBar } from '../../cedar/components/ProgressBar/ProgressBar';
 ---
 
-<BaseLayout title="Status">
+<BaseLayout title="Progress Bar">
   <PageHeader
     eyebrow="Components"
-    title="Status"
-    description="Spinner and Progress Bar — loading indicators for async operations. Three sizes each, token-driven colors."
+    title="Progress Bar"
+    description="Determinate progress indicator for async operations. Three sizes with pill-end corners, token-driven colors."
   />
 
   <PageContent>
     <section>
-      <h2 class="section-title">Spinner — sizes</h2>
-      <div class="demo-block">
-        <div class="spinner-row">
-          <div class="spinner-item">
-            <Spinner size="sm" client:load />
-            <code class="label">sm · 16px</code>
-          </div>
-          <div class="spinner-item">
-            <Spinner size="md" client:load />
-            <code class="label">md · 24px</code>
-          </div>
-          <div class="spinner-item">
-            <Spinner size="lg" client:load />
-            <code class="label">lg · 32px</code>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Spinner — colors</h2>
-      <div class="demo-block">
-        <div class="spinner-row">
-          <div class="spinner-item">
-            <Spinner size="md" color="var(--action-primary)" client:load />
-            <code class="label">action/primary</code>
-          </div>
-          <div class="spinner-item">
-            <Spinner size="md" color="var(--action-secondary)" client:load />
-            <code class="label">action/secondary</code>
-          </div>
-          <div class="spinner-item">
-            <Spinner size="md" color="var(--status-error)" client:load />
-            <code class="label">status/error</code>
-          </div>
-          <div class="spinner-item">
-            <Spinner size="md" color="var(--text-subtle)" client:load />
-            <code class="label">text/subtle</code>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Progress Bar — sizes</h2>
-      <p class="section-desc">Determinate progress bar. Three sizes with pill-end corners. Track is bg/muted; fill is action/primary (teal).</p>
+      <h2 class="section-title">Sizes</h2>
+      <p class="section-desc">Track is bg/muted; fill is action/primary (teal).</p>
       <div class="demo-block progress-demo">
         <div class="progress-row">
           <code class="label">sm · 4px</code>
@@ -90,9 +45,8 @@ import { ProgressBar } from '../../cedar/components/ProgressBar/ProgressBar';
       <h2 class="section-title">Tokens used</h2>
       <div class="token-table">
         {[
-          { token: 'action/primary', usage: 'Spinner arc + progress bar fill' },
+          { token: 'action/primary', usage: 'Progress bar fill' },
           { token: 'bg/muted',       usage: 'Progress bar track background' },
-          { token: 'border/subtle',  usage: 'Spinner background ring' },
         ].map(row => (
           <div class="token-row">
             <code class="token-name">{row.token}</code>
@@ -110,18 +64,6 @@ import { ProgressBar } from '../../cedar/components/ProgressBar/ProgressBar';
     font-weight: 700;
     color: var(--text-base);
     margin-bottom: var(--space-4);
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-  }
-
-  .coming-badge {
-    font-size: var(--size-xs);
-    font-weight: 500;
-    background: var(--bg-muted);
-    color: var(--text-subtle);
-    padding: 2px 10px;
-    border-radius: var(--radius-full);
   }
 
   .section-desc {
@@ -129,6 +71,7 @@ import { ProgressBar } from '../../cedar/components/ProgressBar/ProgressBar';
     color: var(--text-subtle);
     max-width: 560px;
     line-height: 1.6;
+    margin-bottom: var(--space-4);
   }
 
   .demo-block {
@@ -136,20 +79,6 @@ import { ProgressBar } from '../../cedar/components/ProgressBar/ProgressBar';
     border: var(--border-width-base) solid var(--border-subtle);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
-  }
-
-  .spinner-row {
-    display: flex;
-    align-items: center;
-    gap: var(--space-8);
-    flex-wrap: wrap;
-  }
-
-  .spinner-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-3);
   }
 
   .progress-demo {
